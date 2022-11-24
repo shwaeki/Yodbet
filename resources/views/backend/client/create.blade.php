@@ -1,0 +1,65 @@
+@extends('layouts.app')
+
+@push('title')
+    اضافة زبون جديد
+@endpush
+
+@push('pg_btn')
+    <a href="{{route('client.index')}}" class="btn btn-sm btn-neutral">جميع الزبائن</a>
+@endpush
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <form action="{{route('client.store')}}" method="POST">
+                        @csrf
+                        <h6 class="heading-small text-muted mb-4">معلومات الزبون</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-control-label">الاسم </label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               value="{{old('name')}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-control-label">البريد الاكتروني </label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                               value="{{old('email')}}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-control-label"> رقم الهاتف</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                               value="{{old('phone')}}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="taxID" class="form-control-label"> رقم الضريبة</label>
+                                        <input type="text" class="form-control" id="taxID" name="taxID"
+                                               value="{{old('taxID')}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="mt-5 btn btn-primary">اضافة</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
