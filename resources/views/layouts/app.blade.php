@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> {{setting('company_name') }}</title>
+    <title> {{config('app.name') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,21 +76,21 @@
                 icon: 'fas fa-wind-warning',
                 backgroundDismiss: true,
                 closeIcon: true,
-                title: '!هل انت متاكد',
-                content: ' لا يمكنك التراجع عن هذا الإجراء.!',
+                title: '!האם אתה בטוח',
+                content: 'אתה לא יכול לבטל את הפעולה הזו.!',
                 type: 'red',
                 rtl: true,
                 typeAnimated: true,
                 buttons: {
                     confirm: {
-                        text: 'تاكيد',
+                        text: 'בטוח',
                         btnClass: 'btn-red',
                         action: function () {
                             $("#delete-form").submit();
                         }
                     },
                     cancel: {
-                        text: 'الغاء',
+                        text: 'ביטול',
                     }
                 }
             });

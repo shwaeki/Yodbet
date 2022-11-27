@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\ExportClient;
 use Carbon\Carbon;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -9,6 +10,7 @@ use App\Models\Client;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClientTable extends DataTableComponent
 {
@@ -24,6 +26,13 @@ class ClientTable extends DataTableComponent
         $this->setTableRowUrl(function ($row) {
             return route('client.show', $row->id);
         });
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            'export' => 'Export',
+        ];
     }
 
     public function columns(): array
@@ -54,15 +63,24 @@ class ClientTable extends DataTableComponent
                                 'class' => 'btn edit btn-primary btn-sm m-1',
                             ];
                         }),
-                    LinkColumn::make('Delete')
+/*                    LinkColumn::make('Delete')
                         ->title(fn($row) => '')
                         ->location(fn($row) => route('client.destroy', $row->id))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn delete btn-primary btn-sm m-1',
                             ];
-                        }),
+                        }),*/
                 ])->unclickable(),
         ];
+    }
+
+    public function export()
+    {
+        $users = $this->getSelected();
+
+        $this->clearSelected();
+
+        return Excel::download(new ExportClient($users), 'Clients.xlsx');
     }
 }

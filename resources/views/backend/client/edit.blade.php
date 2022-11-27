@@ -29,7 +29,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="email" class="form-control-label">البريد الاكتروني </label>
-                                        <input type="email" class="form-control" id="email" value="{{$client->email}}" required>
+                                        <input type="email" class="form-control" id="email" value="{{$client->email}}">
                                     </div>
                                 </div>
 

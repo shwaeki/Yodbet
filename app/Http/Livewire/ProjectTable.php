@@ -55,14 +55,14 @@ class ProjectTable extends DataTableComponent
                                 'class' => 'btn edit btn-primary btn-sm m-1',
                             ];
                         }),
-                    LinkColumn::make('Delete')
+/*                    LinkColumn::make('Delete')
                         ->title(fn($row) => '')
                         ->location(fn($row) => route('client.project.destroy', [$row->client_id,$row->id]))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn delete btn-primary btn-sm m-1',
                             ];
-                        }),
+                        }),*/
                 ])->unclickable(),
         ];
     }

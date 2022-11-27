@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Worker;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
@@ -34,6 +35,7 @@ class WorkerTable extends DataTableComponent
             Column::make("رقم هاتف 1", "phone1")->sortable(),
             Column::make("سعر الساعة", "hour_cost")->sortable(),
             Column::make("رقم الهوية", "identification")->sortable(),
+            BooleanColumn::make("الحالة", "status")->sortable(),
             Column::make("اضيف بواسطة", "user.name")->sortable(),
 
             Column::make('تاريخ الانشاء', "created_at")
@@ -56,14 +58,14 @@ class WorkerTable extends DataTableComponent
                                 'class' => 'btn edit btn-primary btn-sm m-1',
                             ];
                         }),
-                    LinkColumn::make('Delete')
+/*                    LinkColumn::make('Delete')
                         ->title(fn($row) => '')
                         ->location(fn($row) => route('worker.destroy', $row->id))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn delete btn-primary btn-sm m-1',
                             ];
-                        }),
+                        }),*/
                 ])->unclickable(),
         ];
     }

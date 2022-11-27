@@ -17,12 +17,30 @@ class Worker extends Model
         'hour_cost',
         'email',
         'identification',
+        'status',
+        'is_organizer',
+        'organizer_id',
         'added_by',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class,'added_by');
+    }
+
+    public function Attendances()
+    {
+        return $this->hasMany(AttendanceDetails::class,'worker_id');
+    }
+
+    public function organizer()
+    {
+        return $this->belongsTo(Worker::class,'organizer_id');
+    }
+
+    public function workers()
+    {
+        return $this->hasMany(Worker::class,'organizer_id');
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -30,6 +30,11 @@ class Attendance extends Model
         return $this->belongsTo(Project::class,'project_id');
     }
 
+    public function crane()
+    {
+        return $this->belongsTo(Crane::class,'crane_id');
+    }
+
     public function attendances()
     {
         return $this->hasMany(AttendanceDetails::class,'attendance_id');

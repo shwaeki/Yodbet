@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+{{--                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="start_date" class="form-control-label"> تاريخ بدء المشروع </label>
                                         <input type="date" class="form-control" id="start_date" name="start_date"
@@ -47,7 +47,7 @@
                                         <input type="date" class="form-control" id="end_date" name="end_date"
                                                value="{{old('end_date',$project->end_date)}}" required >
                                     </div>
-                                </div>
+                                </div>--}}
 
                                 <div class="col-lg-6">
                                     <div class="form-group">

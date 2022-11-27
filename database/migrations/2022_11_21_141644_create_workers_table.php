@@ -21,6 +21,9 @@ class CreateWorkersTable extends Migration
             $table->string('email');
             $table->string('identification',9);
             $table->integer('hour_cost');
+            $table->boolean('status')->default(1);
+            $table->boolean('isOrganizer')->default(0);
+            $table->foreignId('organizer_id')->nullable()->references('id')->on('workers')->constrained()->onDelete('cascade');
             $table->foreignId('added_by')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->date('start_date');
-            $table->date('end_date');
+//            $table->date('start_date');
+//            $table->date('end_date');
             $table->integer('hour_cost');
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();

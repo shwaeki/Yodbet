@@ -29,29 +29,37 @@ class AttendanceController extends Controller
 
     public function create()
     {
-
         $daysCount = null;
         $project = null;
         $projectAttendance = null;
+        $extraAttendance = [];
         $minMonth = Carbon::now()->now()->subMonths(2)->format('Y-m');
         $maxMonth = Carbon::now()->subMonths(-5)->format('Y-m');
 
         $date_request = request('month');
         $project_request = request('project');
+        $crane_request = request('crane');
         if ($date_request) {
             $date = explode('-', $date_request);
             $daysCount = Carbon::createFromDate($date[0], $date[1], 1)->daysInMonth;
         }
-        if ($project_request) {
+        if ($project_request && $date_request) {
             $project = Project::findOrFail($project_request);
-            $projectAttendance = $project->attendances()->where('date',$date_request)->first()->attendances()->get();
+            if ($crane_request) {
+                $attendance = $project->attendances()->where('crane_id', $crane_request)
+                    ->where('date', $date_request)->first();
+                if ($attendance) {
+                    $projectAttendance = $attendance->attendances()->where('is_extra',null)->get();
+                    $extraAttendance = $attendance->attendances()->where('is_extra',true)->get();
+                }
+            }
         }
 
         $data = [
             'projects' => Project::where('status', 'pending')->get()->pluck('name', 'id'),
-            'workers' => Worker::all(),
             'project' => $project,
             'projectAttendance' => $projectAttendance,
+            'extraAttendance' => $extraAttendance,
             'minMonth' => $minMonth,
             'maxMonth' => $maxMonth,
             'daysCount' => $daysCount,
@@ -62,7 +70,7 @@ class AttendanceController extends Controller
     public function store(StoreAttendanceRequest $request)
     {
 
-//        dd($request->all());
+        // dd($request->all());
         $date = request("date");
         $project_id = request("project_id");
         $attendance_details = request("attendance");
@@ -83,14 +91,20 @@ class AttendanceController extends Controller
                         'attendance_id' => $attendance_id,
                         'date' => $details['date'],
                     ];
-
+                    if (isset($details['extra'])) {
+                        $checkData['is_extra'] = $details['extra'];
+                    }
                     $updateData = [
                         'worker_id' => $details['worker'],
                         'hour_work_count' => $details['hours'],
                         'hour_cost_project' => $hour_cost_project,
                         'hour_cost_worker' => $worker->hour_cost,
                     ];
-                    AttendanceDetails::updateOrCreate($checkData,$updateData);
+
+                    if (isset($details['extra'])) {
+                        $updateData['is_extra'] = $details['extra'];
+                    }
+                    AttendanceDetails::updateOrCreate($checkData, $updateData);
                 }
             }
         }, 3);

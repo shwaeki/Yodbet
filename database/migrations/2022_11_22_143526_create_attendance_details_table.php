@@ -19,6 +19,7 @@ class CreateAttendanceDetailsTable extends Migration
             $table->integer('hour_cost_worker');
             $table->integer('hour_cost_project');
             $table->integer('hour_work_count');
+            $table->boolean('is_extra')->nullable();
             $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
             $table->foreignId('worker_id')->constrained()->onDelete('cascade');
             $table->softDeletes();

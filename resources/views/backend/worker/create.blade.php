@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="email" class="form-control-label">البريد الاكتروني </label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                               value="{{old('email')}}" required>
+                                               value="{{old('email')}}">
                                     </div>
                                 </div>
 
@@ -59,6 +59,23 @@
                                         <label for="hour_cost" class="form-control-label"> سعر الساعة </label>
                                         <input type="text" class="form-control" id="hour_cost" name="hour_cost"
                                                value="{{old('hour_cost')}}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="organizer_id" class="form-control-label"> المسؤول </label>
+                                        {{ Form::select('organizer_id', $organizers, null, [ 'class'=> 'selectpicker form-control', 'placeholder' => 'اختر المسؤول ...']) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="is_organizer" class="form-control-label"> نوع العامل </label>
+                                        <select class="form-control" id="is_organizer" name="is_organizer" required>
+                                            <option value="0">عامل</option>
+                                            <option value="1">منظم</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

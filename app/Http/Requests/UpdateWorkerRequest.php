@@ -29,7 +29,7 @@ class UpdateWorkerRequest extends FormRequest
             'phone2' => 'nullable|numeric|digits:10',
             'hour_cost' => 'required|numeric',
             'identification' => 'required|numeric|digits:9',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
         ];
     }
 }

@@ -40,6 +40,11 @@ class Project extends Model
         return $this->hasMany(Attendance::class,'project_id');
     }
 
+    public function cranes()
+    {
+        return $this->hasMany(Crane::class,'project_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

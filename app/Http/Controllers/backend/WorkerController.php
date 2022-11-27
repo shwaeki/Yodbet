@@ -5,9 +5,13 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
+use App\Models\Attendance;
+use App\Models\Project;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class WorkerController extends Controller
 {
@@ -19,7 +23,10 @@ class WorkerController extends Controller
 
     public function create()
     {
-        return view('backend.worker.create');
+        $data = [
+            'organizers' => Worker::select("id", "name")->where('is_organizer', false)->where('status', true)->get(),
+        ];
+        return view('backend.worker.create', $data);
     }
 
 
@@ -34,18 +41,50 @@ class WorkerController extends Controller
 
     public function show(Worker $worker)
     {
-        return view('backend.worker.show', compact('worker'));
+
+        $projectAtt = Project::rightJoin("attendances", "projects.id", "=", "attendances.project_id")
+            ->rightJoin("attendance_details", "attendances.id", "=", "attendance_details.attendance_id")
+            ->where("attendance_details.worker_id", "=", $worker->id)
+            ->select("projects.*", DB::raw("SUM(attendance_details.hour_work_count) as total"))
+            ->groupBy("attendances.project_id")
+            ->orderByDesc('total')
+            ->get();
+
+
+        $monthAtt = Attendance::rightJoin("attendance_details", "attendances.id", "=", "attendance_details.attendance_id")
+            ->where("attendance_details.worker_id", "=", $worker->id)
+            ->select("attendances.*", DB::raw("SUM(attendance_details.hour_work_count) as total"))
+            ->groupBy("attendances.date")
+            ->orderByDesc('total')
+            ->get();
+
+        $data = [
+            'worker' => $worker->load('Attendances'),
+            'projectAtt' => $projectAtt,
+            'monthAtt' => $monthAtt,
+        ];
+
+
+        Session::put('fileManagerConfig', "Worker_" . $worker->id);
+        return view('backend.worker.show', $data);
     }
 
 
     public function edit(Worker $worker)
     {
-        return view('backend.worker.edit', compact('worker'));
+        $data = [
+            'worker' => $worker,
+            'organizers' => Worker::where('is_organizer', true)
+                ->where('id', '!=', $worker->id)->where('status', true)
+                ->get()->pluck('name', 'id'),
+        ];
+        return view('backend.worker.edit', $data);
     }
 
 
     public function update(UpdateWorkerRequest $request, Worker $worker)
     {
+        $request->merge(['status' => $request->has('status')]);
         $worker->update($request->all());
         flash(trans('messages.flash.updated'))->success();;
         return redirect()->route('worker.index');
@@ -64,7 +103,9 @@ class WorkerController extends Controller
         $data = [];
         if ($request->has('q')) {
             $search = $request->q;
-            $data = Worker::select("id", "name")
+            $data = Worker::select("id", "name", "identification")
+                ->where('is_organizer', false)
+                ->where('status', true)
                 ->where('name', 'LIKE', "%$search%")
                 ->get();
         }

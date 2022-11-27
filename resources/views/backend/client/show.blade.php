@@ -103,8 +103,8 @@
                                                                        data-target="#editContactModal_{{$contact->id}}"
                                                                        class="btn edit btn-primary text-white btn-sm m-1"></a>
 
-                                                                    <a href="{{route('client.contact.destroy',[$client->id,$contact->id])}}"
-                                                                       class="btn delete btn-primary btn-sm m-1"></a>
+{{--                                                                    <a href="{{route('client.contact.destroy',[$client->id,$contact->id])}}"
+                                                                       class="btn delete btn-primary btn-sm m-1"></a>--}}
                                                                 </div>
                                                             </td>
 
@@ -146,6 +146,8 @@
                                                     <tbody>
                                                     @foreach($client->projects as $project)
                                                         <tr>
+
+
                                                             <td>{{$project->name}}</td>
                                                             <td>{{$project->address}}</td>
                                                             <td>{{$project->start_date}}</td>
@@ -156,11 +158,14 @@
                                                             <td>{{ __('messages.status.'.$project->status)}}</td>
                                                             <td>
                                                                 <div class="space-x-2">
+                                                                    <a href="{{route('project.show',[$project->id])}}"
+                                                                       class="btn view btn-primary btn-sm m-1"></a>
+
                                                                     <a href="{{route('client.project.edit',[$client->id,$project->id])}}"
                                                                        class="btn edit btn-primary btn-sm m-1"></a>
 
-                                                                    <a href="{{route('client.project.destroy',[$client->id,$project->id])}}"
-                                                                       class="btn delete btn-primary btn-sm m-1"></a>
+                                              {{--                      <a href="{{route('client.project.destroy',[$client->id,$project->id])}}"
+                                                                       class="btn delete btn-primary btn-sm m-1"></a>--}}
                                                                 </div>
                                                             </td>
 
@@ -234,6 +239,7 @@
             </div>
         </div>
     @endforeach
+
     <div class="modal fade" id="contactModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -286,6 +292,6 @@
 @push('scripts')
     <script>
         var hash = window.location.hash;
-        $('#tabs a[href="'+hash+'"]').tab('show')
+        $('#tabs a[href="' + hash + '"]').tab('show')
     </script>
 @endpush

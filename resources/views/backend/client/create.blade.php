@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="email" class="form-control-label">البريد الاكتروني </label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                               value="{{old('email')}}" required>
+                                               value="{{old('email')}}">
                                     </div>
                                 </div>
 

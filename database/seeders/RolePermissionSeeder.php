@@ -55,8 +55,17 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $usr->assignRole($admin);
-
         $usr->syncPermissions($permissions);
+
+        $usr1 = User::create([
+            'name' => 'בשיר',
+            'email' => 'busher@yodbet.com',
+            'password' => 'Sa123!d@4s',
+            'email_verified_at' => now(),
+        ]);
+
+        $usr1->assignRole($admin);
+        $usr1->syncPermissions($permissions);
 
         // Create user & role
         $role = Role::create(['name' => 'user']);

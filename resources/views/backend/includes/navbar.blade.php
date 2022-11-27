@@ -17,7 +17,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('home*')) ? 'active' : '' }}" href="{{route('home')}}">
                             <i class="ni ni-shop text-primary"></i>
-                            <span class="nav-link-text">الرئيسية</span>
+                            <span class="nav-link-text">ראשי</span>
                         </a>
                     </li>
 
@@ -28,20 +28,20 @@
                         <a class="nav-link {{ (request()->is('client*')) ? 'active' : '' }}" href="#navbar-client"
                            data-toggle="collapse" role="button" aria-expanded="true">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">ادارة الزبائن</span>
+                            <span class="nav-link-text">ניהול לקוחות</span>
                         </a>
                         <div class="collapse" id="navbar-client">
                             <ul class="nav nav-sm flex-column">
                                 @can('view-post')
                                     <li class="nav-item">
                                         <a href="{{route('client.index')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">جميع الزبائن</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">כל הלקוחות</span></a>
                                     </li>
                                 @endcan
                                 @can( 'create-post')
                                     <li class="nav-item">
                                         <a href="{{route('client.create')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">اضافة زبون جديدة</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">הוסף לקוח חדש</span></a>
                                     </li>
                                 @endcan
                             </ul>
@@ -58,14 +58,14 @@
                            data-toggle="collapse" role="button" aria-expanded="true"
                            aria-controls="navbar-worker">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">ادارة المشاريع</span>
+                            <span class="nav-link-text">ניהול פרויקטים</span>
                         </a>
                         <div class="collapse" id="navbar-project">
                             <ul class="nav nav-sm flex-column">
                                 @can('view-project')
                                     <li class="nav-item">
                                         <a href="{{route('project.index')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">جميع المشاريع</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">כל הפרויקטים</span></a>
                                     </li>
                                 @endcan
                             </ul>
@@ -80,20 +80,20 @@
                            data-toggle="collapse" role="button" aria-expanded="true"
                            aria-controls="navbar-worker">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">ادارة العاملين</span>
+                            <span class="nav-link-text">ניהול עובדים</span>
                         </a>
                         <div class="collapse" id="navbar-worker">
                             <ul class="nav nav-sm flex-column">
                                 @can('view-worker')
                                     <li class="nav-item">
                                         <a href="{{route('worker.index')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">جميع العاملين</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">כל העובדים</span></a>
                                     </li>
                                 @endcan
                                 @can('create-worker')
                                     <li class="nav-item">
                                         <a href="{{route('worker.create')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">اضافة عامل جديدة</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">הוסף עובד חדש</span></a>
                                     </li>
                                 @endcan
                             </ul>
@@ -106,7 +106,7 @@
                         <a class="nav-link {{ (request()->is('attendance*')) ? 'active' : '' }}"
                            href="{{route('attendance.index')}}">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">جدول الحضور</span>
+                            <span class="nav-link-text">הטבלה הנוכחית</span>
                         </a>
                     </li>
 
@@ -135,21 +135,21 @@
                         <a class="nav-link {{ (request()->is('users*')) ? 'active' : '' }}" href="#navbar-users"
                            data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-users">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">ادارة المستخدمين</span>
+                            <span class="nav-link-text">ניהול משתמשים</span>
                         </a>
                         <div class="collapse" id="navbar-users">
                             <ul class="nav nav-sm flex-column">
                                 @can('view-user')
                                     <li class="nav-item">
                                         <a href="{{route('users.index')}}" class="nav-link"><span
-                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">جميع المستخدمين</span></a>
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">כל המשתמשים</span></a>
                                     </li>
                                 @endcan
                                 @can( 'create-user')
                                     <li class="nav-item">
                                         <a href="{{route('users.create')}}" class="nav-link">
                                             <span class="sidenav-mini-icon">D </span>
-                                            <span class="sidenav-normal">اضافة مستخدم جديد</span></a>
+                                            <span class="sidenav-normal">הוסף משתמש חדש</span></a>
                                     </li>
                                 @endcan
 
@@ -158,7 +158,7 @@
                                         <a class="nav-link {{ (request()->is('roles*')) ? 'active' : '' }}"
                                            href="{{route('roles.index')}}">
                                             <span class="sidenav-mini-icon">D </span>
-                                            <span class="sidenav-normal"> ادارة الادوار</span></a>
+                                            <span class="sidenav-normal">ניהול תפקידים</span></a>
                                     </li>
                                 @endcan
 
@@ -167,7 +167,7 @@
                                         <a class="nav-link {{ (request()->is('permissions*')) ? 'active' : '' }}"
                                            href="{{route('permissions.index')}}">
                                             <span class="sidenav-mini-icon">D </span>
-                                            <span class="sidenav-normal"> ادارة الصلاحيات</span></a>
+                                            <span class="sidenav-normal">ניהול הרשאות</span></a>
                                     </li>
                                 @endcan
 

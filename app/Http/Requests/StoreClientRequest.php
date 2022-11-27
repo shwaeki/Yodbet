@@ -27,7 +27,7 @@ class StoreClientRequest extends FormRequest
             'name' => 'required',
             'phone' => 'required|numeric',
             'taxID' => 'required',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
         ];
     }
 }

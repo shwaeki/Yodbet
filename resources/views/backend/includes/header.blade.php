@@ -13,20 +13,20 @@
             </div>
 
             <!-- Search form -->
-            <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
+{{--            <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
                 <div class="form-group mb-0">
                     <div class="input-group input-group-alternative input-group-merge">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                         </div>
-                        <input class="form-control" placeholder="بحث ..." type="text">
+                        <input class="form-control" placeholder="חיפוש ..." type="text">
                     </div>
                 </div>
                 <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
                         aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-            </form>
+            </form>--}}
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center  ml-md-auto ">
 
@@ -52,18 +52,18 @@
                     </a>
                     <div class="dropdown-menu  dropdown-menu-right ">
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">مبرحا</h6>
+                            <h6 class="text-overflow m-0">שלום</h6>
                         </div>
                         <a href="{{ route('profile.edit', auth()->user()) }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>حسابي</span>
+                            <span>החשבון שלי</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <i class="ni ni-user-run"></i>
-                            <span>تسجيل الخروج</span>
+                            <span>להתנתק</span>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

@@ -2,8 +2,10 @@
 
 
 use App\Http\Controllers\backend\AttendanceController;
+use App\Http\Controllers\backend\AttendanceDetailsController;
 use App\Http\Controllers\backend\ClientController;
 use App\Http\Controllers\backend\ContactController;
+use App\Http\Controllers\backend\CraneController;
 use App\Http\Controllers\backend\HomeController;
 use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\PostController;
@@ -59,11 +61,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('client', ClientController::class);
 
     Route::resource('client.contact', ContactController::class)->only(['store','update','destroy']);
+    Route::resource('project.crane', CraneController::class)->only(['store','update','destroy']);
 
 
     Route::resource('project', ProjectController::class)->only(['index', 'show']);
     Route::resource('client.project', ProjectController::class)->only(['create', 'store', 'edit','update', 'destroy']);
 
-    Route::get('/activity-log', [SettingController::class, 'activity'])->name('activity-log.index');
+    Route::get('activity-log', [SettingController::class, 'activity'])->name('activity-log.index');
+
+    Route::post('project/ajax/request-1', [AttendanceDetailsController::class, 'getWorkerForMonthAndProject'])->name('project.ajax.one');
+    Route::post('project/ajax/request-2', [AttendanceDetailsController::class, 'getProjectForMonthAndWorker'])->name('project.ajax.two');
 
 });

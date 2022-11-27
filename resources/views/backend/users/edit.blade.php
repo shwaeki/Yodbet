@@ -36,29 +36,7 @@
                                                value="{{old('phone_number', $user->phone_number)}}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="thumbnail" class="form-control-label d-block"> الصورة </label>
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                              <a id="uploadFile" data-input="thumbnail" data-preview="holder"
-                                                 class="btn btn-secondary">
-                                                <i class="fa fa-picture-o"></i>  اختر الصورة
-                                              </a>
-                                            </span>
-                                            <input id="thumbnail" class="form-control d-none" type="text"
-                                                   name="profile_photo">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-2">
-                                    @if ($user->profile_photo)
-                                        <img alt="Image placeholder"
-                                             class="avatar avatar-xl  rounded-circle"
-                                             src="{{ asset($user->profile_photo) }}">
-                                    @endif
-                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="role" class="form-control-label"> الدور </label>
@@ -67,9 +45,10 @@
                                 </div>
                             </div>
                         </div>
+                        {{--
                         <hr class="my-4"/>
 
-                        <h6 class="heading-small text-muted mb-4">معلومات كلمة المرور</h6>
+                       <h6 class="heading-small text-muted mb-4">معلومات كلمة المرور</h6>
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-md-6">
@@ -88,7 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
                         <hr class="my-4"/>
                         <div class="pl-lg-4">
                             <div class="row">

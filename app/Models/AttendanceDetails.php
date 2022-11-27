@@ -17,6 +17,7 @@ class AttendanceDetails extends Model
         'hour_cost_project',
         'hour_cost_worker',
         'hour_work_count',
+        'is_extra',
         'attendance_id',
         'worker_id',
     ];
