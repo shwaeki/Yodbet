@@ -30,8 +30,6 @@ class ProjectTable extends DataTableComponent
         return [
             Column::make("اسم المشروع", "name")->sortable(),
             Column::make("العنوان", "address")->sortable(),
-            Column::make("تاريخ البدا", "start_date")->sortable(),
-            Column::make("تاريخ الانتهاء", "end_date")->sortable(),
             Column::make("سعر الساعة", "hour_cost")->sortable(),
             Column::make("مدير المشروع", "manager.name")->sortable(),
             Column::make("الزبون", "client.name")->sortable(),
