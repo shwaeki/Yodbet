@@ -134,8 +134,6 @@
                                                     <tr>
                                                         <th>اسم المشروع</th>
                                                         <th>العنوان</th>
-                                                        <th>تاريخ البدا</th>
-                                                        <th>تاريخ الانتهاء</th>
                                                         <th>سعر الساعة</th>
                                                         <th>مدير المشروع</th>
                                                         <th>تاريخ الانشاء</th>
@@ -150,8 +148,6 @@
 
                                                             <td>{{$project->name}}</td>
                                                             <td>{{$project->address}}</td>
-                                                            <td>{{$project->start_date}}</td>
-                                                            <td>{{$project->end_date}}</td>
                                                             <td>{{$project->hour_cost}}</td>
                                                             <td>{{$project->manager->name}}</td>
                                                             <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-m-d')}}</td>

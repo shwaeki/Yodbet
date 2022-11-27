@@ -73,13 +73,15 @@ class AttendanceController extends Controller
         // dd($request->all());
         $date = request("date");
         $project_id = request("project_id");
+        $crane_id = request("crane_id");
         $attendance_details = request("attendance");
         $project = Project::findOrFail($project_id);
         $hour_cost_project = $project->hour_cost;
 
-        DB::transaction(function () use ($hour_cost_project, $attendance_details, $project_id, $date) {
+        DB::transaction(function () use ($crane_id, $hour_cost_project, $attendance_details, $project_id, $date) {
             $attendance_id = Attendance::updateOrCreate([
                 'project_id' => $project_id,
+                'crane_id' => $crane_id,
                 'date' => $date
             ], ['added_by' => Auth::user()->id])->id;
 

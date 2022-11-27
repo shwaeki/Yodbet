@@ -18,11 +18,11 @@ class CreateWorkersTable extends Migration
             $table->string('name');
             $table->string('phone1',10);
             $table->string('phone2',10)->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('identification',9);
             $table->integer('hour_cost');
             $table->boolean('status')->default(1);
-            $table->boolean('isOrganizer')->default(0);
+            $table->boolean('is_organizer')->default(0);
             $table->foreignId('organizer_id')->nullable()->references('id')->on('workers')->constrained()->onDelete('cascade');
             $table->foreignId('added_by')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->softDeletes();

@@ -24,7 +24,7 @@ class WorkerController extends Controller
     public function create()
     {
         $data = [
-            'organizers' => Worker::select("id", "name")->where('is_organizer', false)->where('status', true)->get(),
+            'organizers' => Worker::where('is_organizer', true)->where('status', true)->get()->pluck('name', 'id'),
         ];
         return view('backend.worker.create', $data);
     }

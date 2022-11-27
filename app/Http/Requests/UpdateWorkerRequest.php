@@ -25,10 +25,10 @@ class UpdateWorkerRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone1' => 'required|numeric|digits:10',
-            'phone2' => 'nullable|numeric|digits:10',
+            'phone1' => 'required|numeric',
+            'phone2' => 'nullable|numeric',
             'hour_cost' => 'required|numeric',
-            'identification' => 'required|numeric|digits:9',
+            'identification' => 'required|numeric',
             'email' => 'nullable|email',
         ];
     }
