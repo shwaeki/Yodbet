@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendancesTable extends Migration
+class CreateCranesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('cranes', function (Blueprint $table) {
             $table->id();
-            $table->string('date',7);
-            $table->foreignId('crane_id')->references('id')->on('cranes')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->integer('number')->nullable();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
-            $table->foreignId('added_by')->references('id')->on('users')->constrained()->onDelete('cascade');
-            $table->string('status')->default('new');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ class CreateAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('cranes');
     }
 }

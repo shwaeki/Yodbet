@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input id="email" type="email" value="admin@email.com"  placeholder="البريد الاكتروني"
+                                    <input id="email" type="email"  placeholder="البريد الاكتروني"
                                            class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
@@ -51,7 +51,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input id="password" type="password" value="secret"  placeholder="كلمة المرور"
+                                    <input id="password" type="password"  placeholder="كلمة المرور"
                                            class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                     @error('password')
@@ -68,14 +68,6 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary mt-4">تسجيل الدخول</button>
-                            </div>
-                            <div class="form-group mt-4 mb-0">
-                                <div class="alert alert-info">
-                                   Admin Email : admin@email.com , Password: secret
-                                </div>
-                 {{--               <div class="alert alert-info">
-                                    User Email : user@email.com , Password: secret
-                                 </div>--}}
                             </div>
                         </form>
                     </div>
@@ -96,8 +88,6 @@
                         @endif
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
