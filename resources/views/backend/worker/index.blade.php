@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('title')
-    ادارة العاملين
+    ניהול עובדים
 @endpush
 
 
@@ -18,7 +18,7 @@
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h3 class="mb-0">جميع العاملين</h3>
+                            <h3 class="mb-0">כל העובדים</h3>
                         </div>
                     </div>
                 </div>

@@ -71,7 +71,7 @@
                                         <h4 class="heading-section text-muted mb-4">معلومات المشروع</h4>
                                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                                 data-target="#statusModal">
-                                            تعديل حالة المشروع
+                                            לשׁנות حالة المشروع
                                         </button>
                                     </div>
 
@@ -299,7 +299,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <button type="submit" class="btn btn-primary">تعديل</button>
+                        <button type="submit" class="btn btn-primary">לשׁנות</button>
                     </div>
                 </form>
             </div>

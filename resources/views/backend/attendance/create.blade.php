@@ -105,7 +105,7 @@
                                                             <select class="searchSelect form-control"
                                                                     name="attendance[{{$day}}][worker]"
                                                                     aria-label="Worker">
-                                                                <option value="">اختار عامل ...</option>
+                                                                <option value="">בחר عامل ...</option>
                                                                 @if($attendance)
                                                                     <option value="{{$attendance->worker->id}}"
                                                                             selected>
@@ -155,7 +155,7 @@
                                                         <select class="searchSelect form-control"
                                                                 name="attendance[{{($day+$loop->index)}}][worker]"
                                                                 aria-label="Worker">
-                                                            <option value="">اختار عامل ...</option>
+                                                            <option value="">בחר عامل ...</option>
                                                             <option value="{{$extra->worker->id}}"
                                                                     selected>
                                                                 {{$extra->worker->name}}
@@ -226,7 +226,7 @@
                                                              <select class="searchSelect form-control form-control-sm"
                                                                     name="attendance[` + index + `][worker]"
                                                                     aria-label="Worker" required>
-                                                                <option value="">اختار عامل ...</option>
+                                                                <option value="">בחר عامل ...</option>
                                                                </select>
                                                         </td>
                                                         <td>
@@ -241,7 +241,7 @@
 
             $('select[name="attendance[' + index + '][worker]"]').select2({
                 theme: 'bootstrap4',
-                // placeholder: 'اختار العامل ..',
+                // placeholder: 'בחר את  העובד..',
                 minimumInputLength: 2,
                 ajax: {
                     url: "{{route('worker.ajax')}}",
@@ -287,7 +287,7 @@
 
             $('.searchSelect').select2({
                 theme: 'bootstrap4',
-                // placeholder: 'اختار العامل ..',
+                // placeholder: 'בחר את  העובד..',
                 minimumInputLength: 2,
                 ajax: {
                     url: "{{route('worker.ajax')}}",

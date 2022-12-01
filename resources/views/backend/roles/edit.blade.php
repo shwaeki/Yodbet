@@ -51,7 +51,7 @@
                         <div class="pl-lg-1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ Form::submit('تعديل', ['class'=> 'mt-3 btn btn-primary']) }}
+                                    {{ Form::submit('לשׁנות', ['class'=> 'mt-3 btn btn-primary']) }}
                                 </div>
                             </div>
                         </div>

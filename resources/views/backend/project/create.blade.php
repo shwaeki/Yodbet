@@ -52,7 +52,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="hour_cost" class="form-control-label"> سعر الساعة </label>
+                                        <label for="hour_cost" class="form-control-label"> מחיר לשעה </label>
                                         <input type="text" class="form-control" id="hour_cost" name="hour_cost"
                                                value="{{old('hour_cost')}}" required>
                                     </div>

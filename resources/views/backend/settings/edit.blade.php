@@ -49,7 +49,7 @@
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                           <a id="uploadFile" data-input="thumbnail" data-preview="holder" class="btn btn-secondary">
-                                            <i class="fa fa-picture-o"></i> اختار شعار الموقع
+                                            <i class="fa fa-picture-o"></i> בחר شعار الموقع
                                           </a>
                                         </span>
                                         @if (setting('company_logo'))

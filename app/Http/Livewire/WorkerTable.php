@@ -31,19 +31,19 @@ class WorkerTable extends DataTableComponent
     {
         return [
 
-            Column::make("الاسم", "name")->sortable(),
-            Column::make("رقم هاتف 1", "phone1")->sortable(),
-            Column::make("سعر الساعة", "hour_cost")->sortable(),
-            Column::make("رقم الهوية", "identification")->sortable(),
-            BooleanColumn::make("الحالة", "status")->sortable(),
-            Column::make("اضيف بواسطة", "user.name")->sortable(),
+            Column::make("שם", "name")->sortable(),
+            Column::make("מספר טלפו", "phone1")->sortable(),
+            Column::make("מחיר שעון", "hour_cost")->sortable(),
+            Column::make("מספר תעודת זהות", "identification")->sortable(),
+            BooleanColumn::make("המצב", "status")->sortable(),
+            Column::make("נוסף על ידי", "user.name")->sortable(),
 
-            Column::make('تاريخ الانشاء', "created_at")
+            Column::make('תאריך יצירה', "created_at")
                 ->sortable()
                 ->format(function ($value) {
                     return Carbon::parse($value)->format('Y-m-d');
                 }),
-            ButtonGroupColumn::make('خيارات')
+            ButtonGroupColumn::make('אפשרויות')
                 ->attributes(function ($row) {
                     return [
                         'class' => 'space-x-2',

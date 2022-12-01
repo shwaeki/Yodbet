@@ -26208,13 +26208,15 @@ td {
     overflow: hidden !important;
 }
 
-.bootstrap-select .dropdown-toggle:focus, .bootstrap-select>select.mobile-device:focus+.dropdown-toggle {
-    outline: none!important;
-    outline-offset: inherit!important;
+.bootstrap-select .dropdown-toggle:focus, .bootstrap-select > select.mobile-device:focus + .dropdown-toggle {
+    outline: none !important;
+    outline-offset: inherit !important;
 }
-.g-sidenav-hidden .sidenav-header .brand-name{
+
+.g-sidenav-hidden .sidenav-header .brand-name {
     display: none;
 }
+
 a.delete::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
@@ -26238,7 +26240,9 @@ a.view::before {
     color: red;
     content: " * ";
 }
-.form-control:disabled{
+
+.form-control:disabled {
     background-color: #f3f3f3 !important;
     color: #555 !important;
+    border-color: #5e72e4 !important;
 }
