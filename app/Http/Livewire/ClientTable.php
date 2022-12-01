@@ -38,17 +38,19 @@ class ClientTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("الاسم", "name")->searchable()->sortable(),
-            Column::make("رقم الهاتف", "phone")->searchable()->sortable(),
-            Column::make("الرقم الضريبي", "taxID")->searchable()->sortable(),
-            Column::make("اضيف بواسطة", "user.name")->sortable(),
+            Column::make("שם החשבון", "name")->searchable()->sortable(),
+            Column::make("טלפון נייד", "phone")->searchable()->sortable(),
+            Column::make("מפתח חשבון", "client_key")->searchable()->sortable(),
+            Column::make("ח.פ", "taxID")->searchable()->sortable(),
+            Column::make("עיר", "city")->searchable()->sortable(),
+//            Column::make("נוסף על ידי", "user.name")->sortable(),
 
-            Column::make('تاريخ الانشاء', "created_at")
+            Column::make('תאריך יצירה', "created_at")
                 ->sortable()
                 ->format(function ($value) {
                     return Carbon::parse($value)->format('Y-m-d');
                 }),
-            ButtonGroupColumn::make('خيارات')
+            ButtonGroupColumn::make('אפשרויות')
                 ->attributes(function ($row) {
                     return [
                         'class' => 'space-x-2',

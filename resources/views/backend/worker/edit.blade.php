@@ -67,6 +67,48 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label for="start_work_date" class="form-control-label"> تاريخ بدأ العمل </label>
+                                        <input type="date" class="form-control" id="start_work_date" name="start_work_date"
+                                               value="{{old('start_work_date',$worker->start_work_date)}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="end_work_date" class="form-control-label"> تاريخ انتهاء العمل </label>
+                                        <input type="date" class="form-control" id="end_work_date" name="end_work_date"
+                                               value="{{old('end_work_date',$worker->end_work_date)}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="license_expiration_date" class="form-control-label"> تاريخ انتهاء الرخصة </label>
+                                        <input type="date" class="form-control" id="license_expiration_date" name="license_expiration_date"
+                                               value="{{old('license_expiration_date',$worker->license_expiration_date)}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="course_date" class="form-control-label"> تاريخ الدورة </label>
+                                        <input type="date" class="form-control" id="course_date" name="course_date"
+                                               value="{{old('course_date',$worker->course_date)}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="course_end_date" class="form-control-label"> تاريخ انتهاء
+                                            الدورة </label>
+                                        <input type="date" class="form-control" id="course_end_date"
+                                               name="course_end_date"
+                                               value="{{old('course_end_date',$worker->course_end_date)}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label for="organizer_id" class="form-control-label"> المسؤول </label>
                                         {{ Form::select('organizer_id', $organizers, old('hour_cost',$worker->organizer_id), [ 'class'=> 'selectpicker form-control', 'placeholder' => 'اختر المسؤول ...']) }}
                                     </div>
@@ -82,7 +124,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group d-flex">
                                         <label class="custom-toggle">
                                             <input type="checkbox" value="1" id="status" name="status" @if($worker->status){{'checked'}} @endif>
@@ -95,13 +137,12 @@
 
                             </div>
 
-                            <div class="pl-lg-4">
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="submit" class="mt-5 btn btn-primary">تعديل</button>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </form>
                 </div>

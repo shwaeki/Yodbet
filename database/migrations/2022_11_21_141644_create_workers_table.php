@@ -21,6 +21,9 @@ class CreateWorkersTable extends Migration
             $table->string('email')->nullable();
             $table->string('identification',9);
             $table->integer('hour_cost');
+            $table->date('license_expiration_date')->nullable();
+            $table->date('course_date')->nullable();
+            $table->date('course_end_date')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('is_organizer')->default(0);
             $table->foreignId('organizer_id')->nullable()->references('id')->on('workers')->constrained()->onDelete('cascade');

@@ -56,7 +56,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 0;
-    font-family: 'Cairo', sans-serif;
+    /*font-family: 'Cairo', sans-serif;*/
+    font-family: 'Heebo', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -26236,4 +26237,8 @@ a.view::before {
 .required:before {
     color: red;
     content: " * ";
+}
+.form-control:disabled{
+    background-color: #f3f3f3 !important;
+    color: #555 !important;
 }

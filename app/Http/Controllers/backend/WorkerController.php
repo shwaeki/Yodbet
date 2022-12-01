@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
 use App\Models\Attendance;
+use App\Models\AttendanceDetails;
 use App\Models\Project;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -84,6 +85,7 @@ class WorkerController extends Controller
 
     public function update(UpdateWorkerRequest $request, Worker $worker)
     {
+        // dd($request->all());
         $request->merge(['status' => $request->has('status')]);
         $worker->update($request->all());
         flash(trans('messages.flash.updated'))->success();;
@@ -98,6 +100,18 @@ class WorkerController extends Controller
         return redirect()->route('worker.index');
     }
 
+    public function checkWorkerStatusInDate(Request $request)
+    {
+
+        $worker = request('worker');
+        $date = request('date');
+
+        $data = AttendanceDetails::query()->where('date', $date)->where('worker_id', $worker)->count();
+        if ($data > 0)
+            return response()->json(['status' => false]);
+        return response()->json(['status' => true]);
+    }
+
     public function ajax(Request $request)
     {
         $data = [];
@@ -110,6 +124,7 @@ class WorkerController extends Controller
                 ->get();
         }
         return response()->json($data);
-
     }
+
+
 }

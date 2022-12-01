@@ -14,6 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap"
           rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" href="{{asset('assets/fonts/stylesheet.css')}}">
     <!-- Icons -->
@@ -55,9 +57,10 @@
 <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery-confirm.min.js')}}"></script>
 <script src="{{asset('assets/js/dashboard.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @livewireScripts
 @stack('scripts')
-
 
 
 <form action="" method="POST" id="delete-form">
@@ -66,7 +69,17 @@
 </form>
 
 <script>
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on("input", ".only-number", function() {
+            this.value = this.value.replace(/\D/g,'');
+        });
+
         $('.delete').on('click', function (e) {
             e.preventDefault();
             $("#delete-form").attr('action', $(this).attr('href'));
@@ -95,7 +108,7 @@
                 }
             });
         })
-        $('input[required],select[required],textarea[required]').each(function(){
+        $('input[required],select[required],textarea[required]').each(function () {
             $($(this).parent()).find('label').addClass('required')
         });
     })

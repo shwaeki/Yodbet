@@ -17,6 +17,10 @@ class Client extends Model
         'email',
         'phone',
         'taxID',
+        'client_key',
+        'phone2',
+        'city',
+        'address',
         'added_by',
     ];
 

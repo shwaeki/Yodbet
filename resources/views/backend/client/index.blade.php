@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @push('title')
-    ادارة الزبائن
+    ניהול לקוחות
 @endpush
 
 
 @push('pg_btn')
     @can('create-category')
-        <a href="{{ route('client.create') }}" class="btn btn-sm btn-neutral">اضافة زبون جديد</a>
+        <a href="{{ route('client.create') }}" class="btn btn-sm btn-neutral">הוסף לקוח חדש</a>
     @endcan
 @endpush
 
@@ -18,7 +18,7 @@
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h3 class="mb-0">جميع الزبائن</h3>
+                            <h3 class="mb-0">כל הלקוחות</h3>
                         </div>
                     </div>
                 </div>

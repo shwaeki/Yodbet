@@ -99,7 +99,7 @@
                                                         <td>
                                                             {{$date}}
                                                             <input type="hidden" name="attendance[{{$day}}][date]"
-                                                                   value="{{$date}}">
+                                                                   id="date" value="{{$date}}">
                                                         </td>
                                                         <td>
                                                             <select class="searchSelect form-control"
@@ -141,37 +141,41 @@
                                             @foreach ($extraAttendance as $extra)
                                                 <tr class="table-info">
 
-                                                        <td>{{($day+$loop->index)}}</td>
-                                                        <td>
-                                                            {{$extra->date}}
-                                                            <input type="hidden" name="attendance[{{($day+$loop->index)}}][date]"
-                                                                   value="{{$extra->date}}">
-                                                            <input type="hidden" name="attendance[{{($day+$loop->index)}}][extra]" value="1">
-                                                        </td>
-                                                        <td>
-                                                            <select class="searchSelect form-control"
-                                                                    name="attendance[{{($day+$loop->index)}}][worker]"
-                                                                    aria-label="Worker">
-                                                                <option value="">اختار عامل ...</option>
-                                                                    <option value="{{$extra->worker->id}}"
-                                                                            selected>
-                                                                        {{$extra->worker->name}}
-                                                                        - {{$extra->worker->identification}}
-                                                                    </option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group input-group-sm">
-                                                                <input type="number" name="attendance[{{($day+$loop->index)}}][hours]"
-                                                                       aria-label="Hour Count"
-                                                                       class="form-control"
-                                                                       value="{{ $extra->hour_work_count ??'' }}">
-                                                                <div class="input-group-append">
+                                                    <td>{{($day+$loop->index)}}</td>
+                                                    <td>
+                                                        {{$extra->date}}
+                                                        <input type="hidden"
+                                                               name="attendance[{{($day+$loop->index)}}][date]"
+                                                               value="{{$extra->date}}">
+                                                        <input type="hidden" id="date"
+                                                               name="attendance[{{($day+$loop->index)}}][extra]"
+                                                               value="1">
+                                                    </td>
+                                                    <td>
+                                                        <select class="searchSelect form-control"
+                                                                name="attendance[{{($day+$loop->index)}}][worker]"
+                                                                aria-label="Worker">
+                                                            <option value="">اختار عامل ...</option>
+                                                            <option value="{{$extra->worker->id}}"
+                                                                    selected>
+                                                                {{$extra->worker->name}}
+                                                                - {{$extra->worker->identification}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="number"
+                                                                   name="attendance[{{($day+$loop->index)}}][hours]"
+                                                                   aria-label="Hour Count"
+                                                                   class="form-control"
+                                                                   value="{{ $extra->hour_work_count ??'' }}">
+                                                            <div class="input-group-append">
                                                                 <span class="input-group-text"
                                                                       style="font-size: inherit !important;">ساعات</span>
-                                                                </div>
                                                             </div>
-                                                        </td>
+                                                        </div>
+                                                    </td>
                                                 </tr>
 
                                             @endforeach
@@ -212,7 +216,6 @@
         function addRow() {
             let index = $('#AttendanceTable tr').length;
             $('#AttendanceTable > tbody:last-child').append(`<tr>
-
                                                         <td>` + index + `</td>
                                                         <td>
                                                             <input type="date" class="form-control form-control-sm"
@@ -303,6 +306,32 @@
                     cache: true
                 }
             });
+
+
+            $('.searchSelect').on('select2:select', function (e) {
+                var select = $(e.currentTarget);
+                var worker_id = e.params.data.id;
+                var date = select.parent().parent().find('#date').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('worker.data.status') }}",
+                    data: {worker: worker_id, date: date},
+                    success: function (data) {
+                        if (data.status === false) {
+                            select.val(null).trigger("change");
+                            Swal.fire(
+                                'שגיאה!',
+                                'עובד אינו יכול לעבוד באותו יום ביותר מאתר עבודה אחד!',
+                                'error'
+                            )
+                        }
+                    }
+                });
+
+            });
+
+
         })
     </script>
 

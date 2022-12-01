@@ -8,11 +8,9 @@ use App\Http\Controllers\backend\ContactController;
 use App\Http\Controllers\backend\CraneController;
 use App\Http\Controllers\backend\HomeController;
 use App\Http\Controllers\backend\PermissionController;
-use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\ProjectController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\SettingController;
-use App\Http\Controllers\backend\SupplierController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\WorkerController;
 use Illuminate\Support\Facades\Auth;
@@ -51,9 +49,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::resource('permissions', PermissionController::class)->except(['show', 'destroy', 'update']);
 
-    Route::resource('supplier', SupplierController::class);
-
     Route::get('worker/ajax', [WorkerController::class, 'ajax'])->name('worker.ajax');
+    Route::post('worker/ajax/data/status', [WorkerController::class, 'checkWorkerStatusInDate'])->name('worker.data.status');
     Route::resource('worker', WorkerController::class);
 
     Route::resource('attendance', AttendanceController::class);
