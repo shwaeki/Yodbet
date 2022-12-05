@@ -16,9 +16,9 @@ class CreateAttendanceDetailsTable extends Migration
         Schema::create('attendance_details', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->integer('hour_cost_worker');
-            $table->integer('hour_cost_project');
-            $table->integer('hour_work_count');
+            $table->double('hour_cost_worker',10,2);
+            $table->double('hour_cost_project',10,2);
+            $table->double('hour_work_count',10,2);
             $table->boolean('is_extra')->nullable();
             $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
             $table->foreignId('worker_id')->constrained()->onDelete('cascade');

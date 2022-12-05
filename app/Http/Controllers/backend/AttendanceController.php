@@ -64,6 +64,8 @@ class AttendanceController extends Controller
             'maxMonth' => $maxMonth,
             'daysCount' => $daysCount,
         ];
+     //   dd(Project::with('client')->select(DB::raw('CONCAT(client.name," " ,name) as name , id'))->where('status', 'pending')->get());
+
         return view('backend.attendance.create', $data);
     }
 

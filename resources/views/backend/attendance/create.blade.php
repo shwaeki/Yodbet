@@ -118,7 +118,7 @@
                                                         <td>
                                                             <div class="input-group input-group-sm">
                                                                 <input type="number" name="attendance[{{$day}}][hours]"
-                                                                       aria-label="Hour Count"
+                                                                       aria-label="Hour Count" step="0.01"
                                                                        class="form-control"
                                                                        value="{{ $attendance->hour_work_count ??'' }}">
                                                                 <div class="input-group-append">
@@ -231,7 +231,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control" required>
+                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control" step="0.01" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" style="font-size: inherit !important;">ساعات</span>
                                                                 </div>
