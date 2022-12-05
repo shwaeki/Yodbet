@@ -8,11 +8,11 @@
 
 
 @push('title')
-    ادارة حضور العاملين
+    ניהול נוכחות עובדים
 @endpush
 
 @push('pg_btn')
-    <a href="{{route('client.index')}}" class="btn btn-sm btn-neutral">رجوع </a>
+    <a href="{{route('client.index')}}" class="btn btn-sm btn-neutral">חזרה </a>
 @endpush
 
 
@@ -23,20 +23,20 @@
                 <div class="card-body">
                     <form action="{{route('attendance.store')}}" method="POST">
                         @csrf
-                        <h6 class="heading-small text-muted mb-4">معلومات جدول الحضور</h6>
+                        <h6 class="heading-small text-muted mb-4">מידע על לוח נוכחות עובדים</h6>
                         <div class="pl-lg-4">
                             <div class="row">
 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="project_id" class="form-control-label"> المشروع </label>
+                                        <label for="project_id" class="form-control-label"> פרויקט </label>
                                         {{ Form::select('project_id', $projects,old('project_id',request('project')), [ 'id' => 'project_id' , 'class'=> 'selectpicker form-control','required' => 'required', 'placeholder' => 'اختر المشروع ...']) }}
                                     </div>
                                 </div>
 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="date" class="form-control-label"> الشهر </label>
+                                        <label for="date" class="form-control-label"> תאריך </label>
                                         <input type="month" class="form-control" id="date" name="date"
                                                value="{{request('month') }}" min="{{$minMonth}}"
                                                max="{{$maxMonth}}" required>
@@ -45,7 +45,7 @@
 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="crane_id" class="form-control-label"> الرافعة </label>
+                                        <label for="crane_id" class="form-control-label"> מנוף </label>
                                         {{ Form::select('crane_id',  $project?->cranes()->pluck('name', 'id') ?? [],old('crane_id',request('crane')), [ 'id' => 'crane_id' , 'class'=> 'selectpicker form-control','required' => 'required', 'placeholder' => 'اختر الرافعة ...']) }}
                                     </div>
                                 </div>
@@ -54,18 +54,21 @@
                             </div>
                             @if($project)
                                 <div class="row py-4 bg-primary text-white rounded-lg mb-4">
-                                    <div class="col-3">
-                                        مدير المشروع : {{$project->manager->name}}
+                                    <div class="col-3 d-flex align-items-center">
+                                        מנהל הפרויקט : {{$project->manager->name}}
                                     </div>
-                                    <div class="col-3">
-                                        حالة المشروع : {{$project->status}}
+                                    <div class="col-3 d-flex align-items-center">
+                                        סטאטוס : {{$project->status}}
                                     </div>
-                                    {{--                                    <div class="col-3">
-                                                                            تاريخ بداية المشروع : {{$project->start_date}}
-                                                                        </div>
-                                                                        <div class="col-3">
-                                                                            تاريخ نهاية المشروع : {{$project->end_date}}
-                                                                        </div>--}}
+                                    <div class="col-3 d-flex flex-fill align-items-center">
+                                        <span class="flex-shrink-0 mr-3">   עובד קבוע:</span>
+                                        <select class="form-control searchSelect" id="mainWorker" aria-label="Worker">
+                                            <option value="">בחר עובד ...</option>
+                                        </select>
+                                        <button type="button" id="selectWorker" class="btn btn-neutral ml-3 py-2"> בחר
+                                        </button>
+                                    </div>
+
                                 </div>
                             @endif
                             @if($project && $daysCount && request('crane') )
@@ -76,9 +79,9 @@
                                             <thead class="thead-light">
                                             <tr>
                                                 <th>#</th>
-                                                <th>التاريخ</th>
-                                                <th style="width:30%">الموظف</th>
-                                                <th style="width:20%">عدد الساعات</th>
+                                                <th>תאריל</th>
+                                                <th style="width:30%">עובד</th>
+                                                <th style="width:20%">מספר השעות</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -105,7 +108,7 @@
                                                             <select class="searchSelect form-control"
                                                                     name="attendance[{{$day}}][worker]"
                                                                     aria-label="Worker">
-                                                                <option value="">בחר عامل ...</option>
+                                                                <option value="">בחר עובד ...</option>
                                                                 @if($attendance)
                                                                     <option value="{{$attendance->worker->id}}"
                                                                             selected>
@@ -123,7 +126,7 @@
                                                                        value="{{ $attendance->hour_work_count ??'' }}">
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text"
-                                                                      style="font-size: inherit !important;">ساعات</span>
+                                                                      style="font-size: inherit !important;">שעות</span>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -155,7 +158,7 @@
                                                         <select class="searchSelect form-control"
                                                                 name="attendance[{{($day+$loop->index)}}][worker]"
                                                                 aria-label="Worker">
-                                                            <option value="">בחר عامل ...</option>
+                                                            <option value="">בחר עובד ...</option>
                                                             <option value="{{$extra->worker->id}}"
                                                                     selected>
                                                                 {{$extra->worker->name}}
@@ -172,7 +175,7 @@
                                                                    value="{{ $extra->hour_work_count ??'' }}">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text"
-                                                                      style="font-size: inherit !important;">ساعات</span>
+                                                                      style="font-size: inherit !important;">שעות</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -212,6 +215,17 @@
     <script src="{{asset('assets/vendor/select2/dist/js/select2.full.min.js')}}"></script>
 
     <script>
+        $('body').on('keydown', 'input, select', function (e) {
+            if (e.key === "Enter") {
+                var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+                focusable = form.find('input,a,select,button,textarea,.select2-selection').filter(':visible');
+                next = focusable.eq(focusable.index(this) + 1);
+                if (next.length) {
+                    next.focus();
+                }
+                return false;
+            }
+        });
 
         function addRow() {
             let index = $('#AttendanceTable tr').length;
@@ -226,14 +240,14 @@
                                                              <select class="searchSelect form-control form-control-sm"
                                                                     name="attendance[` + index + `][worker]"
                                                                     aria-label="Worker" required>
-                                                                <option value="">בחר عامل ...</option>
+                                                                <option value="">בחר עובד ...</option>
                                                                </select>
                                                         </td>
                                                         <td>
                                                             <div class="input-group input-group-sm">
                                                                 <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control" step="0.01" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" style="font-size: inherit !important;">ساعات</span>
+                                                                <span class="input-group-text" style="font-size: inherit !important;">שעות</span>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -262,7 +276,25 @@
             });
         }
 
+
         $(document).ready(function () {
+
+            $("#selectWorker").on("click", function () {
+                var data = $('#mainWorker').select2('data')
+                var name = data[0].text;
+                var id = data[0].id;
+
+                $('.searchSelect').each(function () {
+                    if ($(this).find("option[value=" + id + "]").length) {
+                        $(this).val(id).trigger("change");
+                    } else {
+                        var newState = new Option(name, id, true, true);
+                        $(this).append(newState).trigger('change');
+                    }
+                })
+
+            });
+
             $('#date, #project_id, #crane_id').on('change', function () {
                 var date = $('#date').val();
                 var project_id = $('#project_id').val();

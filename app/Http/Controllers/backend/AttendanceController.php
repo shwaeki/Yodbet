@@ -49,14 +49,16 @@ class AttendanceController extends Controller
                 $attendance = $project->attendances()->where('crane_id', $crane_request)
                     ->where('date', $date_request)->first();
                 if ($attendance) {
-                    $projectAttendance = $attendance->attendances()->where('is_extra',null)->get();
-                    $extraAttendance = $attendance->attendances()->where('is_extra',true)->get();
+                    $projectAttendance = $attendance->attendances()->where('is_extra', null)->get();
+                    $extraAttendance = $attendance->attendances()->where('is_extra', true)->get();
                 }
             }
         }
+        $projects = Project::select(DB::raw('CONCAT(c.name," - " ,projects.name) as name , projects.id'))
+            ->join('clients AS c', 'c.id', '=', 'projects.client_id')->where('status', 'pending')->get()->pluck('name','id') ;
 
         $data = [
-            'projects' => Project::where('status', 'pending')->get()->pluck('name', 'id'),
+            'projects' => $projects,
             'project' => $project,
             'projectAttendance' => $projectAttendance,
             'extraAttendance' => $extraAttendance,
@@ -64,7 +66,7 @@ class AttendanceController extends Controller
             'maxMonth' => $maxMonth,
             'daysCount' => $daysCount,
         ];
-     //   dd(Project::with('client')->select(DB::raw('CONCAT(client.name," " ,name) as name , id'))->where('status', 'pending')->get());
+
 
         return view('backend.attendance.create', $data);
     }
