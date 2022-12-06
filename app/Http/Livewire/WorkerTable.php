@@ -18,9 +18,9 @@ class WorkerTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setPerPageAccepted([10, 25, 50, 100]);
+        $this->setPerPage(50);
         $this->setAdditionalSelects(['workers.id as id']);
         $this->setColumnSelectStatus(false);
-
 
         $this->setTableRowUrl(function ($row) {
             return route('worker.show', $row->id);
@@ -31,6 +31,7 @@ class WorkerTable extends DataTableComponent
     {
         return [
 
+            Column::make("#", "id")->sortable(),
             Column::make("שם", "name")->sortable(),
             Column::make("מספר טלפו", "phone1")->sortable(),
             Column::make("מחיר שעון", "hour_cost")->sortable(),

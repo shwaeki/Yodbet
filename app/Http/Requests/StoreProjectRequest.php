@@ -25,11 +25,11 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'address' => 'required',
+            'address' => 'nullable',
 //            'start_date' => 'required|date',
 //            'end_date' => 'required|date',
             'hour_cost' => 'required|numeric',
-            'manager_id' => 'required|exists:contacts,id',
+            'manager_id' => 'nullable|exists:contacts,id',
 //            'client_id' => 'required|exists:clients,id',
         ];
     }

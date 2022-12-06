@@ -26246,3 +26246,14 @@ a.view::before {
     color: #555 !important;
     border-color: #5e72e4 !important;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

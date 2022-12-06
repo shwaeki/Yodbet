@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="address" class="form-control-label">عنوان المشروع </label>
                                         <input type="text" class="form-control" id="address" name="address"
-                                               value="{{old('address')}}" placeholder="القدس - شعفاط" required>
+                                               value="{{old('address')}}" placeholder="">
                                     </div>
                                 </div>
 

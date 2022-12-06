@@ -106,7 +106,7 @@
                         <a class="nav-link {{ (request()->is('attendance*')) ? 'active' : '' }}"
                            href="{{route('attendance.index')}}">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">הטבלה הנוכחית</span>
+                            <span class="nav-link-text">דוח שעות </span>
                         </a>
                     </li>
 

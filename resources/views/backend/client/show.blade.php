@@ -182,7 +182,7 @@
                                                             <td>{{$project->name}}</td>
                                                             <td>{{$project->address}}</td>
                                                             <td>{{$project->hour_cost}}</td>
-                                                            <td>{{$project->manager->name}}</td>
+                                                            <td>{{$project->manager->name ?? ''}}</td>
                                                             <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-m-d')}}</td>
                                                             <td>{{ __('messages.status.'.$project->status)}}</td>
                                                             <td>

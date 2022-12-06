@@ -25,10 +25,10 @@ class StoreWorkerRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone1' => 'required|numeric',
+            'phone1' => 'nullable|numeric',
             'phone2' => 'nullable|numeric',
-            'hour_cost' => 'required|numeric',
-            'identification' => 'required|numeric',
+            'hour_cost' => 'nullable|numeric',
+            'identification' => 'nullable|numeric',
             'email' => 'nullable|email',
         ];
     }

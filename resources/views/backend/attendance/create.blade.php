@@ -55,7 +55,7 @@
                             @if($project)
                                 <div class="row py-4 bg-primary text-white rounded-lg mb-4">
                                     <div class="col-3 d-flex align-items-center">
-                                        מנהל הפרויקט : {{$project->manager->name}}
+                                        מנהל הפרויקט : {{$project->manager->name ?? ''}}
                                     </div>
                                     <div class="col-3 d-flex align-items-center">
                                         סטאטוס : {{$project->status}}
@@ -67,6 +67,15 @@
                                         </select>
                                         <button type="button" id="selectWorker" class="btn btn-neutral ml-3 py-2"> בחר
                                         </button>
+                                    </div>
+
+                                    <div class="col-3 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-neutral ml-3 py-2" data-toggle="modal"
+                                                data-target="#addWorkerModel">
+                                            הוסף עובד
+                                        </button>
+
+
                                     </div>
 
                                 </div>
@@ -85,6 +94,9 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <tr>
+                                                <td class="text-right" colspan="4"><h4 class="mb-0">סך הכול שעות: <span class="totalHours">0</span></h4></td>
+                                            </tr>
                                             @for ($day = 1; $day <=$daysCount ; $day++)
                                                 @php
                                                     $attendance = null;
@@ -122,7 +134,7 @@
                                                             <div class="input-group input-group-sm">
                                                                 <input type="number" name="attendance[{{$day}}][hours]"
                                                                        aria-label="Hour Count" step="0.01"
-                                                                       class="form-control"
+                                                                       class="form-control hours"
                                                                        value="{{ $attendance->hour_work_count ??'' }}">
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text"
@@ -171,7 +183,7 @@
                                                             <input type="number"
                                                                    name="attendance[{{($day+$loop->index)}}][hours]"
                                                                    aria-label="Hour Count"
-                                                                   class="form-control"
+                                                                   class="form-control hours"
                                                                    value="{{ $extra->hour_work_count ??'' }}">
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text"
@@ -182,8 +194,10 @@
                                                 </tr>
 
                                             @endforeach
+
                                             </tbody>
                                         </table>
+                                       <h4 class="mb-0 mx-4 pt-2 border-top text-right">סך הכול שעות: <span class="totalHours">0</span></h4>
                                     </div>
                                 </div>
                             @endif
@@ -194,7 +208,7 @@
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="mt-3 btn btn-primary">تحديث</button>
+                                    <button type="submit" class="mt-3 btn btn-primary">לעתכן</button>
                                 </div>
                             </div>
                         </div>
@@ -208,17 +222,126 @@
         <input type="hidden" id="project" name="project" value="">
         <input type="hidden" id="crane" name="crane" value="">
     </form>
+
+
+    <div class="modal fade" id="addWorkerModel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="" id="addWorkerForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> הוסף עובד</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-control-label">שם </label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           value="{{old('name')}}" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="hour_cost" class="form-control-label"> מחיר לשעה </label>
+                                    <input type="text" class="form-control only-number" id="hour_cost" name="hour_cost"
+                                           value="{{old('hour_cost')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="phone1" class="form-control-label"> מספר טלפו</label>
+                                    <input type="text" class="form-control only-number" id="phone1" name="phone1"
+                                           value="{{old('phone1')}}" maxlength="10">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="identification" class="form-control-label">מספר תעודת זהות</label>
+                                    <input type="text" class="form-control only-number" id="identification"
+                                           name="identification" maxlength="9"
+                                           value="{{old('identification')}}">
+                                </div>
+                            </div>
+
+
+{{--
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
+                                    <input type="date" class="form-control" id="start_work_date" name="start_work_date"
+                                           value="{{old('start_work_date')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="end_work_date" class="form-control-label"> תאריך סיום העבודה </label>
+                                    <input type="date" class="form-control" id="end_work_date" name="end_work_date"
+                                           value="{{old('end_work_date')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="license_expiration_date" class="form-control-label">תאריך תפוגה של
+                                        הרישיון </label>
+                                    <input type="date" class="form-control" id="license_expiration_date"
+                                           name="license_expiration_date"
+                                           value="{{old('license_expiration_date')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="course_date" class="form-control-label"> תאריך הקורס </label>
+                                    <input type="date" class="form-control" id="course_date" name="course_date"
+                                           value="{{old('course_date')}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="course_end_date" class="form-control-label">תאריך סיום הקורס</label>
+                                    <input type="date" class="form-control" id="course_end_date"
+                                           name="course_end_date"
+                                           value="{{old('course_end_date')}}">
+                                </div>
+                            </div>--}}
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-primary">הוסף</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
+
 
 
 @push('scripts')
     <script src="{{asset('assets/vendor/select2/dist/js/select2.full.min.js')}}"></script>
 
     <script>
+
+
         $('body').on('keydown', 'input, select', function (e) {
             if (e.key === "Enter") {
                 var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
-                focusable = form.find('input,a,select,button,textarea,.select2-selection').filter(':visible');
+                focusable = form.find('input').filter(':visible');
                 next = focusable.eq(focusable.index(this) + 1);
                 if (next.length) {
                     next.focus();
@@ -245,7 +368,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control" step="0.01" required>
+                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control hours" step="0.01" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" style="font-size: inherit !important;">שעות</span>
                                                                 </div>
@@ -255,7 +378,7 @@
 
             $('select[name="attendance[' + index + '][worker]"]').select2({
                 theme: 'bootstrap4',
-                // placeholder: 'בחר את  העובד..',
+                // placeholder: 'בחר עובד..',
                 minimumInputLength: 2,
                 ajax: {
                     url: "{{route('worker.ajax')}}",
@@ -278,6 +401,36 @@
 
 
         $(document).ready(function () {
+            $(document).on("input",'.hours', function() {
+                var total = 0;
+                $('.hours').each(function(){total += +$(this).val();});
+                $('.totalHours').html(total);
+            });
+
+            $("#addWorkerForm").on("submit", function (event) {
+                event.preventDefault();
+                var data = getFormData( $(event.target) );
+                data['_token'] = "{{ csrf_token() }}";
+                $.ajax({
+                    type: 'POST',
+                    url: '{{route('worker.store.ajax')}}',
+                    dataType: 'json',
+                    data: data,
+                    success: function (data) {
+                        if(data.status === true){
+                            Swal.fire(
+                                'עובד חדש נוסף בהצלחה.',
+                                '',
+                                'success'
+                            )
+                        }
+                        $('#addWorkerModel').modal('hide');
+                        console.log(data);
+                    }
+                });
+                console.log(data);
+            });
+
 
             $("#selectWorker").on("click", function () {
                 var data = $('#mainWorker').select2('data')
@@ -292,8 +445,8 @@
                         $(this).append(newState).trigger('change');
                     }
                 })
-
             });
+
 
             $('#date, #project_id, #crane_id').on('change', function () {
                 var date = $('#date').val();
@@ -338,7 +491,6 @@
                     cache: true
                 }
             });
-
 
             $('.searchSelect').on('select2:select', function (e) {
                 var select = $(e.currentTarget);

@@ -20,6 +20,7 @@ class ClientTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setPerPageAccepted([10, 25, 50, 100]);
+        $this->setPerPage(50);
         $this->setAdditionalSelects(['clients.id as id']);
         $this->setColumnSelectStatus(false);
 

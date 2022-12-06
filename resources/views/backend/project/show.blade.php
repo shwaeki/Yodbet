@@ -123,7 +123,7 @@
                                                     <label for="manager_id" class="form-control-label"> مدير
                                                         المشروع </label>
                                                     <input type="text" class="form-control" id="hour_cost"
-                                                           value="{{$project->manager->name}}" readonly>
+                                                           value="{{$project->manager->name ?? ''}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">

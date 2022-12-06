@@ -18,6 +18,7 @@ class ProjectTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setPerPageAccepted([10, 25, 50, 100]);
+        $this->setPerPage(50);
         $this->setAdditionalSelects(['projects.id as id','projects.client_id as client_id']);
         $this->setColumnSelectStatus(false);
         $this->setTableRowUrl(function ($row) {

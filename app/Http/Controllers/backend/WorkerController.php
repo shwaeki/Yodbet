@@ -127,4 +127,12 @@ class WorkerController extends Controller
     }
 
 
+    public function storeAjax(StoreWorkerRequest $request)
+    {
+        $request->merge(['added_by' => Auth::user()->id]);
+        $data = Worker::create($request->all());
+        return response()->json(['status'=>true,'data'=>$data]);
+    }
+
+
 }
