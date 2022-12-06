@@ -95,7 +95,8 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td class="text-right" colspan="4"><h4 class="mb-0">סך הכול שעות: <span class="totalHours">0</span></h4></td>
+                                                <td class="text-right" colspan="4"><h4 class="mb-0">סך הכול שעות: <span
+                                                            class="totalHours">0</span></h4></td>
                                             </tr>
                                             @for ($day = 1; $day <=$daysCount ; $day++)
                                                 @php
@@ -197,7 +198,8 @@
 
                                             </tbody>
                                         </table>
-                                       <h4 class="mb-0 mx-4 pt-2 border-top text-right">סך הכול שעות: <span class="totalHours">0</span></h4>
+                                        <h4 class="mb-0 mx-4 pt-2 border-top text-right">סך הכול שעות: <span
+                                                class="totalHours">0</span></h4>
                                     </div>
                                 </div>
                             @endif
@@ -271,49 +273,49 @@
                             </div>
 
 
-{{--
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
-                                    <input type="date" class="form-control" id="start_work_date" name="start_work_date"
-                                           value="{{old('start_work_date')}}">
-                                </div>
-                            </div>
+                            {{--
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
+                                                                <input type="date" class="form-control" id="start_work_date" name="start_work_date"
+                                                                       value="{{old('start_work_date')}}">
+                                                            </div>
+                                                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="end_work_date" class="form-control-label"> תאריך סיום העבודה </label>
-                                    <input type="date" class="form-control" id="end_work_date" name="end_work_date"
-                                           value="{{old('end_work_date')}}">
-                                </div>
-                            </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="end_work_date" class="form-control-label"> תאריך סיום העבודה </label>
+                                                                <input type="date" class="form-control" id="end_work_date" name="end_work_date"
+                                                                       value="{{old('end_work_date')}}">
+                                                            </div>
+                                                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="license_expiration_date" class="form-control-label">תאריך תפוגה של
-                                        הרישיון </label>
-                                    <input type="date" class="form-control" id="license_expiration_date"
-                                           name="license_expiration_date"
-                                           value="{{old('license_expiration_date')}}">
-                                </div>
-                            </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="license_expiration_date" class="form-control-label">תאריך תפוגה של
+                                                                    הרישיון </label>
+                                                                <input type="date" class="form-control" id="license_expiration_date"
+                                                                       name="license_expiration_date"
+                                                                       value="{{old('license_expiration_date')}}">
+                                                            </div>
+                                                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="course_date" class="form-control-label"> תאריך הקורס </label>
-                                    <input type="date" class="form-control" id="course_date" name="course_date"
-                                           value="{{old('course_date')}}">
-                                </div>
-                            </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="course_date" class="form-control-label"> תאריך הקורס </label>
+                                                                <input type="date" class="form-control" id="course_date" name="course_date"
+                                                                       value="{{old('course_date')}}">
+                                                            </div>
+                                                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="course_end_date" class="form-control-label">תאריך סיום הקורס</label>
-                                    <input type="date" class="form-control" id="course_end_date"
-                                           name="course_end_date"
-                                           value="{{old('course_end_date')}}">
-                                </div>
-                            </div>--}}
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="course_end_date" class="form-control-label">תאריך סיום הקורס</label>
+                                                                <input type="date" class="form-control" id="course_end_date"
+                                                                       name="course_end_date"
+                                                                       value="{{old('course_end_date')}}">
+                                                            </div>
+                                                        </div>--}}
 
 
                         </div>
@@ -399,17 +401,24 @@
             });
         }
 
+        function getTotalHours() {
+            var total = 0;
+            $('.hours').each(function () {
+                total += +$(this).val();
+            });
+            $('.totalHours').html(total);
+        }
 
         $(document).ready(function () {
-            $(document).on("input",'.hours', function() {
-                var total = 0;
-                $('.hours').each(function(){total += +$(this).val();});
-                $('.totalHours').html(total);
+            $(document).on("input", '.hours', function () {
+                getTotalHours();
             });
+
+            getTotalHours();
 
             $("#addWorkerForm").on("submit", function (event) {
                 event.preventDefault();
-                var data = getFormData( $(event.target) );
+                var data = getFormData($(event.target));
                 data['_token'] = "{{ csrf_token() }}";
                 $.ajax({
                     type: 'POST',
@@ -417,7 +426,7 @@
                     dataType: 'json',
                     data: data,
                     success: function (data) {
-                        if(data.status === true){
+                        if (data.status === true) {
                             Swal.fire(
                                 'עובד חדש נוסף בהצלחה.',
                                 '',

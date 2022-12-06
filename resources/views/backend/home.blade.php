@@ -80,10 +80,24 @@
         </div>
     </div>
 
-
-    {{-- ============= --}}
-
-
+    <hr>
+    <div class="row ">
+        <div class="col-4">
+            @can('create-attendance')
+                <a href="{{ route('attendance.create') }}" class="btn btn-block btn-primary">הוסף דוח שעות</a>
+            @endcan</div>
+        <div class="col-4">
+            @can('create-client')
+                <a href="{{ route('client.create') }}" class="btn btn-block btn-info">הוסף לקוח חדש</a>
+            @endcan
+        </div>
+        <div class="col-4">
+            @can('create-worker')
+                <a href="{{ route('worker.create') }}" class="btn  btn-block btn-success">הוסף עובד חדש</a>
+            @endcan
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-xl-8">
             <div class="card">
@@ -103,7 +117,7 @@
 
                         <thead class="thead-light">
                         <tr>
-                            <th>שם הפרוייקט	</th>
+                            <th>שם הפרוייקט</th>
                             <th>כתובת</th>
                             <th>מחיר לשעה</th>
                             <th>מנהל פרוייקט</th>
@@ -145,7 +159,7 @@
 
                         <thead class="thead-light">
                         <tr>
-                            <th>שם הפרוייקט	</th>
+                            <th>שם הפרוייקט</th>
                             <th>מחיר לשעה</th>
                             <th>תאריך יצירה</th>
                         </tr>

@@ -6,7 +6,7 @@
 
 
 @push('pg_btn')
-    @can('create-category')
+    @can('create-client')
         <a href="{{ route('client.create') }}" class="btn btn-sm btn-neutral">הוסף לקוח חדש</a>
     @endcan
 @endpush
