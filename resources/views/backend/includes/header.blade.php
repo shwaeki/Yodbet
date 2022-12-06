@@ -13,20 +13,8 @@
             </div>
 
             <!-- Search form -->
-{{--            <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-                <div class="form-group mb-0">
-                    <div class="input-group input-group-alternative input-group-merge">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input class="form-control" placeholder="חיפוש ..." type="text">
-                    </div>
-                </div>
-                <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-                        aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </form>--}}
+            <livewire:main-search />
+
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center  ml-md-auto ">
 
@@ -74,3 +62,16 @@
         </div>
     </div>
 </nav>
+
+@push('scripts')
+    <script>
+        $("#search").focus(function(){
+            window.livewire.emit('changeStatus', true);
+        });
+
+        $("#search").focusout(function(){
+            window.livewire.emit('changeStatus', false);
+        });
+
+    </script>
+@endpush

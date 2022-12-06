@@ -91,7 +91,7 @@ class AttendanceController extends Controller
 
             foreach ($attendance_details as $details) {
                 // dd($details);
-                if (isset($details['date']) && isset($details['worker']) && isset($details['hours'])) {
+                if (isset($details['date'])) {
                     $worker = Worker::findOrFail($project_id);
                     $checkData = [
                         'attendance_id' => $attendance_id,

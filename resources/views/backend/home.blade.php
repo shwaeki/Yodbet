@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <hr>
+    <hr class="m-3 mt--1">
     <div class="row ">
         <div class="col-4">
             @can('create-attendance')
@@ -97,7 +97,7 @@
             @endcan
         </div>
     </div>
-    <hr>
+    <hr class="m-3">
     <div class="row">
         <div class="col-xl-8">
             <div class="card">

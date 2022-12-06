@@ -17923,7 +17923,7 @@ textarea[resize="horizontal"] {
     box-shadow: none;
 }
 
-.focused .input-group-alternative {
+.input-group-alternative {
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
 }
 
@@ -20071,7 +20071,7 @@ textarea[resize="horizontal"] {
     }
 }
 
-.navbar-search .focused .input-group .form-control {
+.navbar-search .input-group .form-control {
     width: 380px;
 }
 
@@ -20104,7 +20104,7 @@ textarea[resize="horizontal"] {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.navbar-search-dark .focused .input-group {
+.navbar-search-dark .input-group {
     background-color: rgba(23, 43, 77, 0.9);
     border-color: rgba(255, 255, 255, 0.9);
 }
@@ -20134,7 +20134,7 @@ textarea[resize="horizontal"] {
     color: rgba(0, 0, 0, 0.6);
 }
 
-.navbar-search-light .focused .input-group {
+.navbar-search-light .input-group {
     background-color: white;
     border-color: rgba(0, 0, 0, 0.9);
 }
@@ -20163,7 +20163,7 @@ textarea[resize="horizontal"] {
         width: auto;
     }
 
-    .navbar-search .focused .input-group .form-control {
+    .navbar-search .input-group .form-control {
         width: auto;
     }
 
@@ -26257,3 +26257,41 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+
+
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+    margin-left: auto !important;
+    margin-right: -4px !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    left: 3px !important;
+    right: auto !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+    padding-right: 0 !important;
+    padding-left: 5px !important;
+    float: right !important;
+    margin-right: 0 !important;
+    margin-left: 5px !important;
+}
+
+
+.input-group-prepend ~ .select2-container--bootstrap4 .select2-selection {
+    border-radius: 0.2rem 0 0 0.2rem !important;
+}
+
+.select2-container--bootstrap4 .select2-selection__clear {
+    padding-right: 0.3em !important;
+    float: left !important;
+    left: 15px !important;
+    margin-right: auto !important;
+    padding-left: 2.5px !important;
+    padding-top: 1px !important;
+    line-height: 0.75em !important;
+    background-color: #f13f3f !important;
+}
+

@@ -123,10 +123,10 @@
                                                                     aria-label="Worker">
                                                                 <option value="">בחר עובד ...</option>
                                                                 @if($attendance)
-                                                                    <option value="{{$attendance->worker->id}}"
+                                                                    <option value="{{$attendance->worker?->id}}"
                                                                             selected>
-                                                                        {{$attendance->worker->name}}
-                                                                        - {{$attendance->worker->identification}}
+                                                                        {{$attendance->worker?->name}}
+                                                                        - {{$attendance->worker?->identification}}
                                                                     </option>
                                                                 @endif
                                                             </select>
@@ -210,7 +210,7 @@
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="mt-3 btn btn-primary">לעתכן</button>
+                                    <button type="submit" class="mt-3 btn btn-primary">עדכון</button>
                                 </div>
                             </div>
                         </div>
@@ -271,53 +271,6 @@
                                            value="{{old('identification')}}">
                                 </div>
                             </div>
-
-
-                            {{--
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
-                                                                <input type="date" class="form-control" id="start_work_date" name="start_work_date"
-                                                                       value="{{old('start_work_date')}}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="end_work_date" class="form-control-label"> תאריך סיום העבודה </label>
-                                                                <input type="date" class="form-control" id="end_work_date" name="end_work_date"
-                                                                       value="{{old('end_work_date')}}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="license_expiration_date" class="form-control-label">תאריך תפוגה של
-                                                                    הרישיון </label>
-                                                                <input type="date" class="form-control" id="license_expiration_date"
-                                                                       name="license_expiration_date"
-                                                                       value="{{old('license_expiration_date')}}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="course_date" class="form-control-label"> תאריך הקורס </label>
-                                                                <input type="date" class="form-control" id="course_date" name="course_date"
-                                                                       value="{{old('course_date')}}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label for="course_end_date" class="form-control-label">תאריך סיום הקורס</label>
-                                                                <input type="date" class="form-control" id="course_end_date"
-                                                                       name="course_end_date"
-                                                                       value="{{old('course_end_date')}}">
-                                                            </div>
-                                                        </div>--}}
-
-
                         </div>
 
                     </div>
@@ -481,7 +434,12 @@
 
             $('.searchSelect').select2({
                 theme: 'bootstrap4',
-                // placeholder: 'בחר את  העובד..',
+                allowClear: true,
+                placeholder: {
+                    id: "",
+                    text: "בחר עובד ...",
+                    selected: 'selected'
+                },
                 minimumInputLength: 2,
                 ajax: {
                     url: "{{route('worker.ajax')}}",

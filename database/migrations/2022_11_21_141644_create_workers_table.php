@@ -16,11 +16,11 @@ class CreateWorkersTable extends Migration
         Schema::create('workers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone1',10);
+            $table->string('phone1',10)->nullable();
             $table->string('phone2',10)->nullable();
             $table->string('email')->nullable();
             $table->string('identification',9);
-            $table->integer('hour_cost');
+            $table->integer('hour_cost')->nullable();
             $table->date('license_expiration_date')->nullable();
             $table->date('course_date')->nullable();
             $table->date('course_end_date')->nullable();
