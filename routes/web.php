@@ -31,7 +31,7 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Auth::routes(['false' => true, 'reset' => false ,'register' => false]);
+Auth::routes(['reset' => false ,'register' => false]);
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {

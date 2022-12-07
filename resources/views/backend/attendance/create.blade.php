@@ -136,7 +136,7 @@
                                                                 <input type="number" name="attendance[{{$day}}][hours]"
                                                                        aria-label="Hour Count" step="0.01"
                                                                        class="form-control hours"
-                                                                       value="{{ $attendance->hour_work_count ??'' }}">
+                                                                       value="{{ $attendance->hour_work_count ??'' }}" {{ $attendance->worker ? '' : 'readonly' }}>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text"
                                                                       style="font-size: inherit !important;">שעות</span>
@@ -292,48 +292,23 @@
 
     <script>
 
+        function getTotalHours() {
+            var total = 0;
+            $('.hours').each(function () {
+                total += +$(this).val();
+            });
+            $('.totalHours').html(total);
+        }
 
-        $('body').on('keydown', 'input, select', function (e) {
-            if (e.key === "Enter") {
-                var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
-                focusable = form.find('input').filter(':visible');
-                next = focusable.eq(focusable.index(this) + 1);
-                if (next.length) {
-                    next.focus();
-                }
-                return false;
-            }
-        });
-
-        function addRow() {
-            let index = $('#AttendanceTable tr').length;
-            $('#AttendanceTable > tbody:last-child').append(`<tr>
-                                                        <td>` + index + `</td>
-                                                        <td>
-                                                            <input type="date" class="form-control form-control-sm"
-                                                                name="attendance[` + index + `][date]" required>
-                                                            <input type="hidden" name="attendance[` + index + `][extra]" value="1">
-                                                        </td>
-                                                        <td>
-                                                             <select class="searchSelect form-control form-control-sm"
-                                                                    name="attendance[` + index + `][worker]"
-                                                                    aria-label="Worker" required>
-                                                                <option value="">בחר עובד ...</option>
-                                                               </select>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group input-group-sm">
-                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count" class="form-control hours" step="0.01" required>
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text" style="font-size: inherit !important;">שעות</span>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-        </tr>`);
-
-            $('select[name="attendance[' + index + '][worker]"]').select2({
+        function initializeSelect2(selector = '.searchSelect') {
+            $(selector).select2({
                 theme: 'bootstrap4',
-                // placeholder: 'בחר עובד..',
+                allowClear: true,
+                placeholder: {
+                    id: "",
+                    text: "בחר עובד ...",
+                    selected: 'selected'
+                },
                 minimumInputLength: 2,
                 ajax: {
                     url: "{{route('worker.ajax')}}",
@@ -352,22 +327,95 @@
                     cache: true
                 }
             });
+
+
+            $(selector).on('select2:select', function (e) {
+                var select = $(e.currentTarget);
+                var worker_id = e.params.data.id;
+                var date = select.parent().parent().find('#date').val();
+                var hours = select.parent().parent().find(".hours");
+                hours.prop('readonly', false);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('worker.data.status') }}",
+                    data: {worker: worker_id, date: date},
+                    success: function (data) {
+                        if (data.status === false) {
+                            select.val(null).trigger("change");
+                            hours.prop('readonly', true);
+                            hours.val('');
+                            Swal.fire(
+                                'שגיאה!',
+                                'עובד אינו יכול לעבוד באותו יום ביותר מאתר עבודה אחד!',
+                                'error'
+                            )
+                        }
+                    }
+                });
+            });
+
+            $(selector).on('select2:clear', function (e) {
+                var select = $(e.currentTarget);
+                var hours = select.parent().parent().find(".hours");
+                hours.prop('readonly', true);
+                hours.val('');
+
+            });
+
         }
 
-        function getTotalHours() {
-            var total = 0;
-            $('.hours').each(function () {
-                total += +$(this).val();
-            });
-            $('.totalHours').html(total);
+        function addRow() {
+            let index = $('#AttendanceTable tr').length;
+            $('#AttendanceTable > tbody:last-child').append(`<tr>
+                                                        <td>` + index + `</td>
+                                                        <td>
+                                                            <input type="date" class="form-control form-control-sm"
+                                                                id="date" name="attendance[` + index + `][date]" required>
+                                                            <input type="hidden" name="attendance[` + index + `][extra]" value="1">
+                                                        </td>
+                                                        <td>
+                                                             <select class="searchSelect form-control form-control-sm"
+                                                                    name="attendance[` + index + `][worker]"
+                                                                    aria-label="Worker" required>
+                                                                <option value="">בחר עובד ...</option>
+                                                               </select>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group input-group-sm">
+                                                                <input type="number" name="attendance[` + index + `][hours]" aria-label="Hour Count"
+                                                              class="form-control hours" step="0.01" required readonly>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" style="font-size: inherit !important;">שעות</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+        </tr>`);
+            var select2 = $("select[name='attendance["+ index + "][worker]']")
+            initializeSelect2(select2);
         }
+
 
         $(document).ready(function () {
+
+            initializeSelect2();
+            getTotalHours();
+
             $(document).on("input", '.hours', function () {
                 getTotalHours();
             });
 
-            getTotalHours();
+            $('body').on('keydown', 'input, select', function (e) {
+                if (e.key === "Enter") {
+                    var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+                    focusable = form.find('input').filter(':visible');
+                    next = focusable.eq(focusable.index(this) + 1);
+                    if (next.length) {
+                        next.focus();
+                    }
+                    return false;
+                }
+            });
 
             $("#addWorkerForm").on("submit", function (event) {
                 event.preventDefault();
@@ -431,57 +479,6 @@
                     $('#monthFom').submit();
                 }
             });
-
-            $('.searchSelect').select2({
-                theme: 'bootstrap4',
-                allowClear: true,
-                placeholder: {
-                    id: "",
-                    text: "בחר עובד ...",
-                    selected: 'selected'
-                },
-                minimumInputLength: 2,
-                ajax: {
-                    url: "{{route('worker.ajax')}}",
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name + " - " + item.identification,
-                                    id: item.id,
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $('.searchSelect').on('select2:select', function (e) {
-                var select = $(e.currentTarget);
-                var worker_id = e.params.data.id;
-                var date = select.parent().parent().find('#date').val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('worker.data.status') }}",
-                    data: {worker: worker_id, date: date},
-                    success: function (data) {
-                        if (data.status === false) {
-                            select.val(null).trigger("change");
-                            Swal.fire(
-                                'שגיאה!',
-                                'עובד אינו יכול לעבוד באותו יום ביותר מאתר עבודה אחד!',
-                                'error'
-                            )
-                        }
-                    }
-                });
-
-            });
-
 
         })
     </script>

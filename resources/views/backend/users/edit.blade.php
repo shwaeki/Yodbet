@@ -73,7 +73,7 @@
                             <div class="row">
                                 @can('update-user')
                                     <div class="col-md-12">
-                                        <button type="submit" class="mt-5 btn btn-primary">לשׁנות</button>
+                                        <button type="submit" class="mt-5 btn btn-primary">עדכון</button>
                                     </div>
                                 @endcan
                             </div>
@@ -84,12 +84,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>
-        jQuery(document).ready(function () {
-            jQuery('#uploadFile').filemanager('file');
-        })
-    </script>
-@endpush

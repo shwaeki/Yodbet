@@ -117,7 +117,7 @@ class AttendanceController extends Controller
 
 
         flash(trans('messages.flash.created'))->success();
-        return redirect()->route('attendance.index');
+        return redirect()->back();
     }
 
 

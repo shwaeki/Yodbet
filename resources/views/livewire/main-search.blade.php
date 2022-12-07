@@ -47,7 +47,7 @@
                                        class="list-item px-3 py-1 border-bottom h5">{{ $item['name'] }}</a>
                                 @endforeach
                             @endif
-                            @if(count($data['workers']) == 0 && count($data['clients']) == 0 && count($data['workers']) == 0)
+                            @if(count($data['workers']) == 0 && count($data['clients']) == 0 && count($data['projects']) == 0)
                                 <div class="list-item text-center p-2 mb-0 h5">לא נמצאה תוצאה ל "{{$query}}" !</div>
                             @endif
 
