@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\Attendance;
 use App\Models\AttendanceDetails;
+use App\Models\Crane;
 use App\Models\Project;
 use App\Models\Worker;
 use Carbon\Carbon;
@@ -46,16 +47,20 @@ class AttendanceController extends Controller
         if ($project_request && $date_request) {
             $project = Project::findOrFail($project_request);
             if ($crane_request) {
-                $attendance = $project->attendances()->where('crane_id', $crane_request)
-                    ->where('date', $date_request)->first();
-                if ($attendance) {
-                    $projectAttendance = $attendance->attendances()->where('is_extra', null)->get();
-                    $extraAttendance = $attendance->attendances()->where('is_extra', true)->get();
+                $crane = Crane::findOrFail($crane_request);
+                if ($crane) {
+                    $attendance = $project->attendances()->where('crane_id', $crane_request)
+                        ->where('date', $date_request)->first();
+                    if ($attendance) {
+                        $projectAttendance = $attendance->attendances()->where('is_extra', null)->get();
+                        $extraAttendance = $attendance->attendances()->where('is_extra', true)->get();
+                    }
                 }
             }
         }
         $projects = Project::select(DB::raw('CONCAT(c.name," - " ,projects.name) as name , projects.id'))
-            ->join('clients AS c', 'c.id', '=', 'projects.client_id')->where('status', 'pending')->get()->pluck('name','id') ;
+            ->join('clients AS c', 'c.id', '=', 'projects.client_id')->where('status', 'pending')->get()->pluck('name', 'id');
+
 
         $data = [
             'projects' => $projects,

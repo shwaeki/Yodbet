@@ -136,7 +136,7 @@
                                                                 <input type="number" name="attendance[{{$day}}][hours]"
                                                                        aria-label="Hour Count" step="0.01"
                                                                        class="form-control hours"
-                                                                       value="{{ $attendance->hour_work_count ??'' }}" {{ $attendance->worker ? '' : 'readonly' }}>
+                                                                       value="{{ $attendance->hour_work_count ??'' }}" {{ $attendance ? '' : 'readonly' }}>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text"
                                                                       style="font-size: inherit !important;">שעות</span>
