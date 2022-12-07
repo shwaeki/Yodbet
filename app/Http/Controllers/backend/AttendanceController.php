@@ -128,28 +128,93 @@ class AttendanceController extends Controller
 
     public function show(Attendance $attendance)
     {
-        return view('backend.attendance.show', compact('attendance'));
+
     }
 
 
     public function edit(Attendance $attendance)
     {
-        return view('backend.attendance.edit', compact('attendance'));
+//        return view('backend.attendance.edit', compact('attendance'));
     }
 
 
     public function update(UpdateAttendanceRequest $request, Attendance $attendance)
     {
-        $attendance->update($request->all());
-        flash(trans('messages.flash.updated'))->success();
-        return redirect()->route('attendance.index');
+        /*        $attendance->update($request->all());
+                flash(trans('messages.flash.updated'))->success();
+                return redirect()->route('attendance.index');*/
     }
 
 
     public function destroy(Attendance $attendance)
     {
-        $attendance->delete();
-        flash(trans('messages.flash.deleted'))->info();
-        return redirect()->route('attendance.index');
+        /*        $attendance->delete();
+                flash(trans('messages.flash.deleted'))->info();
+                return redirect()->route('attendance.index');*/
     }
+
+    public function showReport(Attendance $attendance)
+    {
+        $data = [];
+        if (request('month')) {
+
+
+            $date = explode('-', request('month'));
+            $year = $date[0];
+            $month = $date[1];
+
+            $totalHours = Worker::with(['Attendances' => function ($q) use ($year, $month) {
+                $q->whereYear('date', '=', $year);
+                $q->whereMonth('date', '=', $month);
+                $q->select('id', 'date', 'worker_id', 'hour_work_count');
+            }])->select('id', 'name')->get();
+
+
+            $data = $totalHours->map(function ($item) use ($month, $year) {
+                $item['attendances']['sum'] = $item->Attendances->sum('hour_work_count');
+                $item['attendances']['hours'] = $this->calculatorExtraHours($item->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get());
+                return $item;
+            });
+        }
+        //   return response()->json($data);
+        return view('backend.attendance.show', compact('data'));
+    }
+
+
+    private function calculatorExtraHours($totalHours)
+    {
+        $data = [];
+        $data['hours_normal'] = 0;
+        $data['hours_125'] = 0;
+        $data['hours_150'] = 0;
+        $data['hours_bonus'] = 0;
+        foreach ($totalHours as $hour) {
+            $hours = $hour->hour_work_count;
+            if ($hours >= 8.5) {
+                $data['hours_normal'] += 8.5;
+                $hours -= 8.5;
+                if ($hours >= 2) {
+                    $data['hours_125'] += 2;
+                    $hours -= 2;
+                } else {
+                    $data['hours_125'] += $hours;
+                    $hours -= $hours;
+                }
+                if ($hours >= 2) {
+                    $data['hours_150'] += 2;
+                    $hours -= 2;
+                } else {
+                    $data['hours_150'] += $hours;
+                    $hours -= $hours;
+                }
+                if ($hours > 0) {
+                    $data['hours_bonus'] += $hours;
+                }
+            } else {
+                $data['hours_normal'] += $hours;
+            }
+        }
+        return $data;
+    }
+
 }

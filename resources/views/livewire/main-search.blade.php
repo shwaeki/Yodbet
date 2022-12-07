@@ -20,11 +20,11 @@
                         <div
                             class="rounded-lg bg-white position-absolute w-100 left-0 mt-3 p-3 shadow list-group"
                             style="z-index: 999999; max-height: 300px; overflow: auto;">
-                            <div wire:loading class="text-center p-3">
+{{--                            <div wire:loading class="text-center p-3">
                                 <p><i class="fas fa-spinner fa-spin"></i> מחפש... </p>
-                            </div>
+                            </div>--}}
                             @if(count($data['workers']) > 0)
-                                <h4 class="mb-0 text-black-50">עבדים</h4>
+                                <h4 class="mb-0 text-black-50">עובדים</h4>
                                 @foreach($data['workers'] as $i => $item)
                                     <a href="{{route('worker.show',$item['id'])}}"
                                        class="list-item px-3 py-1 border-bottom h5">{{ $item['name'] }}</a>

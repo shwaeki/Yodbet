@@ -90,32 +90,34 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="phone2" class="form-control-label">מספר טלפון לגיבוי</label>
+                                                    <label for="phone2" class="form-control-label">מספר טלפון
+                                                        לגיבוי</label>
                                                     <input type="text" class="form-control" id="phone2"
                                                            value="{{$worker->phone2}}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="identification" class="form-control-label">מספר תעודת זהות</label>
+                                                    <label for="identification" class="form-control-label">מספר תעודת
+                                                        זהות</label>
                                                     <input type="text" class="form-control" id="identification"
                                                            value="{{$worker->identification}}" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="hour_cost" class="form-control-label"> מחיר לשעה </label>
+                                                    <label for="hour_cost" class="form-control-label"> מחיר
+                                                        לשעה </label>
                                                     <input type="text" class="form-control" id="hour_cost"
                                                            value="{{$worker->hour_cost}}" disabled>
                                                 </div>
                                             </div>
 
 
-
-
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
+                                                    <label for="start_work_date" class="form-control-label"> תאריך תחילת
+                                                        העבודה </label>
                                                     <input type="date" class="form-control" id="start_work_date"
                                                            value="{{$worker->start_work_date}}" disabled>
                                                 </div>
@@ -123,7 +125,8 @@
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="end_work_date" class="form-control-label"> תאריך סיום  העבודה </label>
+                                                    <label for="end_work_date" class="form-control-label"> תאריך סיום
+                                                        העבודה </label>
                                                     <input type="date" class="form-control" id="end_work_date"
                                                            value="{{$worker->end_work_date}}" disabled>
                                                 </div>
@@ -131,7 +134,8 @@
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="license_expiration_date" class="form-control-label"> תאריך תפוגה של הרישיון </label>
+                                                    <label for="license_expiration_date" class="form-control-label">
+                                                        תאריך תפוגה של הרישיון </label>
                                                     <input type="date" class="form-control" id="license_expiration_date"
                                                            value="{{$worker->license_expiration_date}}" disabled>
                                                 </div>
@@ -139,7 +143,8 @@
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="course_date" class="form-control-label"> תאריך הקורס </label>
+                                                    <label for="course_date" class="form-control-label"> תאריך
+                                                        הקורס </label>
                                                     <input type="date" class="form-control" id="course_date"
                                                            value="{{ $worker->course_date}}" disabled>
                                                 </div>
@@ -147,27 +152,32 @@
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="course_end_date" class="form-control-label">תאריך סיום הקורס</label>
+                                                    <label for="course_end_date" class="form-control-label">תאריך סיום
+                                                        הקורס</label>
                                                     <input type="date" class="form-control" id="course_end_date"
-                                                          value="{{$worker->course_end_date}}" disabled>
+                                                           value="{{$worker->course_end_date}}" disabled>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="organizer_id" class="form-control-label"> מנהל  </label>
-                                                    <input type="text" class="form-control" id="is_organizer" value="{{$worker->organizer?->name}}" disabled>
+                                                    <label for="organizer_id" class="form-control-label"> מנהל </label>
+                                                    <input type="text" class="form-control" id="is_organizer"
+                                                           value="{{$worker->organizer?->name}}" disabled>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="is_organizer" class="form-control-label"> סוג העובד </label>
-                                                        @if($worker->is_organizer)
-                                                            <input type="text" class="form-control" id="is_organizer" value="סדראן" disabled>
-                                                        @else
-                                                            <input type="text" class="form-control" id="is_organizer" value="עובד" disabled>
-                                                        @endif
+                                                    <label for="is_organizer" class="form-control-label"> סוג
+                                                        העובד </label>
+                                                    @if($worker->is_organizer)
+                                                        <input type="text" class="form-control" id="is_organizer"
+                                                               value="סדראן" disabled>
+                                                    @else
+                                                        <input type="text" class="form-control" id="is_organizer"
+                                                               value="עובד" disabled>
+                                                    @endif
                                                 </div>
                                             </div>
 
@@ -191,7 +201,7 @@
                                                         <table class="table align-items-center">
                                                             <thead class="thead-light">
                                                             <tr>
-                                                                <th>העובד</th>
+                                                                <th>הפרויקט</th>
                                                                 <th>מספר השעות</th>
                                                             </tr>
                                                             </thead>
@@ -211,13 +221,12 @@
                                             <div class="col-md-6 col-12">
                                                 <h3>דוחות שעות חודשיים</h3>
                                                 <div class="table-responsive">
-                                                    <div>
                                                         <table class="table align-items-center">
                                                             <thead class="thead-light">
                                                             <tr>
                                                                 <th>החודש</th>
                                                                 <th>מספר השעות</th>
-                                                                <th>מידע </th>
+                                                                <th>מידע</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -228,14 +237,17 @@
                                                                     <td>
                                                                         <button class="btn btn-sm btn-primary"
                                                                                 onclick="openMonthAttModel('{{$att->date}}',{{$worker->id}})">
-                                                                            <i class="fas fa-info"></i>
+                                                                            פרויקטים
+                                                                        </button>
+                                                                        <button class="btn btn-sm btn-primary"
+                                                                                onclick="openMonthReportModel('{{$att->date}}',{{$worker->id}})">
+                                                                           שעות
                                                                         </button>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
                                                             </tbody>
                                                         </table>
-                                                    </div>
                                                 </div>
 
                                             </div>
@@ -300,17 +312,63 @@
         </div>
     </div>
 
+    <div class="modal fade" id="monthReportModel">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">מידע על שעות עבודה</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table align-items-center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>סיג</th>
+                            <th>כמות</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>שעות רגילות</td>
+                                <td id="hours_normal"></td>
+                            </tr>
+                            <tr>
+                                <td>שעות 125%</td>
+                                <td id="hours_125"></td>
+                            </tr>
+                            <tr>
+                                <td>שעות 150%</td>
+                                <td id="hours_150"></td>
+                            </tr>
+                            <tr>
+                                <td>שעות בונוס</td>
+                                <td id="hours_bonus"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">סגור</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 @endsection
 
 @push('scripts')
     <script>
-        $('#tabs a').on('click',function(e) {
+        $('#tabs a').on('click', function (e) {
             e.preventDefault();
             $(this).tab('show');
         });
 
-        $("ul > li > a").on("shown.bs.tab", function(e) {
+        $("ul > li > a").on("shown.bs.tab", function (e) {
             var id = $(e.target).attr("href").substr(1);
             window.location.hash = id;
         });
@@ -318,7 +376,7 @@
         var hash = window.location.hash;
         $('#tabs a[href="' + hash + '"]').tab('show')
 
-        function openMonthAttModel(month,worker) {
+        function openMonthAttModel(month, worker) {
             $("#tableMonthAtt").find("tr:gt(0)").remove();
             $.ajax({
                 type: 'POST',
@@ -330,14 +388,34 @@
                     worker: worker,
                 },
                 success: function (data) {
-                    for(var i = 0; i < data.length; i++) {
+                    for (var i = 0; i < data.length; i++) {
                         var html = '<tr>';
-                        html += '<td>'+data[i].name+'</td>';
-                        html += '<td>'+data[i].total+'</td></tr>';
+                        html += '<td>' + data[i].name + '</td>';
+                        html += '<td>' + data[i].total + '</td></tr>';
                         $('#tableMonthAtt').prepend(html);
                     }
                     $('#monthAttModel').modal('show');
 
+                }
+            });
+        }
+
+        function openMonthReportModel(month, worker) {
+            $.ajax({
+                type: 'POST',
+                url: '{{route('worker.report.monthly')}}',
+                dataType: 'json',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    month: month,
+                    worker: worker,
+                },
+                success: function (data) {
+                    console.log(data);
+                    for (var k in data) {
+                        $('#'+k+'').html(data[k]);
+                    }
+                    $('#monthReportModel').modal('show');
 
                 }
             });

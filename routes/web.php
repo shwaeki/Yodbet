@@ -50,10 +50,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('permissions', PermissionController::class)->except(['show', 'destroy', 'update']);
 
     Route::post('worker/store/ajax', [WorkerController::class, 'storeAjax'])->name('worker.store.ajax');
+    Route::post('worker/report/monthly', [WorkerController::class, 'getWorkerMonthlyReport'])->name('worker.report.monthly');
     Route::get('worker/ajax', [WorkerController::class, 'ajax'])->name('worker.ajax');
     Route::post('worker/ajax/data/status', [WorkerController::class, 'checkWorkerStatusInDate'])->name('worker.data.status');
     Route::resource('worker', WorkerController::class);
 
+
+    Route::get('attendance/report', [AttendanceController::class, 'showReport'])->name('attendance.report');
     Route::resource('attendance', AttendanceController::class);
 
     Route::resource('client', ClientController::class);

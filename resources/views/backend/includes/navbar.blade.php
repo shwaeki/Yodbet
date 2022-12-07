@@ -104,31 +104,31 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('attendance*')) ? 'active' : '' }}"
-                           href="{{route('attendance.index')}}">
+                           href="#navbar-attendance"
+                           data-toggle="collapse" role="button" aria-expanded="true"
+                           aria-controls="navbar-worker">
                             <i class="far fa-dot-circle text-primary"></i>
-                            <span class="nav-link-text">דוח שעות </span>
+                            <span class="nav-link-text">ניהול דוחי שעות</span>
                         </a>
+                        <div class="collapse" id="navbar-attendance">
+                            <ul class="nav nav-sm flex-column">
+                                @can('view-attendance')
+                                    <li class="nav-item">
+                                        <a href="{{route('attendance.index')}}" class="nav-link"><span
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">דוח שעות</span></a>
+                                    </li>
+                                @endcan
+                                @can('view-attendance-report')
+                                    <li class="nav-item">
+                                        <a href="{{route('attendance.report')}}" class="nav-link"><span
+                                                class="sidenav-mini-icon">D </span><span class="sidenav-normal">דוח ריכוז</span></a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
                     </li>
 
-                    {{--                    @canany(['media'])
-                                            <li class="nav-item">
-                                                <a class="nav-link {{ (request()->is('media*')) ? 'active' : '' }}"
-                                                   href="{{route('media.index')}}">
-                                                    <i class="fas fa-images text-primary"></i>
-                                                    <span class="nav-link-text">إدارة الوسائط</span>
-                                                </a>
-                                            </li>
-                                        @endcan
 
-                                        @canany(['view-activity-log'])
-                                            <li class="nav-item">
-                                                <a class="nav-link {{ (request()->is('activity-log*')) ? 'active' : '' }}"
-                                                   href="{{route('activity-log.index')}}">
-                                                    <i class="fas fa-history text-primary"></i>
-                                                    <span class="nav-link-text">سجل النشاطات</span>
-                                                </a>
-                                            </li>
-                                        @endcan--}}
 
 
                     <li class="nav-item">

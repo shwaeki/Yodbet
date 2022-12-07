@@ -454,7 +454,9 @@
                         var newState = new Option(name, id, true, true);
                         $(this).append(newState).trigger('change');
                     }
+
                 })
+                $('.hours').prop('readonly', false).val('');
             });
 
 

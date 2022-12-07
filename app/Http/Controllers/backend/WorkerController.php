@@ -131,7 +131,57 @@ class WorkerController extends Controller
     {
         $request->merge(['added_by' => Auth::user()->id]);
         $data = Worker::create($request->all());
-        return response()->json(['status'=>true,'data'=>$data]);
+        return response()->json(['status' => true, 'data' => $data]);
+    }
+
+
+    public function getWorkerMonthlyReport(Request $request)
+    {
+        $worker = Worker::findOrFail(request('worker'));
+        $date = explode('-', request('month'));
+        $year = $date[0];
+        $month = $date[1];
+
+        $totalHours = $worker->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get()->pluck('hour_work_count', 'date');
+        $data = $this->calculatorExtraHours($totalHours);
+        return response()->json($data);
+    }
+
+
+    private function calculatorExtraHours($totalHours)
+    {
+        $data = [];
+        $data['hours_normal'] = 0;
+        $data['hours_125'] = 0;
+        $data['hours_150'] = 0;
+        $data['hours_bonus'] = 0;
+        foreach ($totalHours as $hour) {
+            $hours = $hour;
+            if ($hours >= 8.5) {
+                $data['hours_normal'] += 8.5;
+                $hours -= 8.5;
+                if ($hours >= 2) {
+                    $data['hours_125'] += 2;
+                    $hours -= 2;
+                } else {
+                    $data['hours_125'] += $hours;
+                    $hours -= $hours;
+                }
+                if ($hours >= 2) {
+                    $data['hours_150'] += 2;
+                    $hours -= 2;
+                } else {
+                    $data['hours_150'] += $hours;
+                    $hours -= $hours;
+                }
+                if ($hours > 0) {
+                    $data['hours_bonus'] += $hours;
+                }
+            } else {
+                $data['hours_normal'] += $hours;
+            }
+        }
+        return $data;
     }
 
 
