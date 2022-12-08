@@ -11,6 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Attendance extends Model
 {
     use HasFactory, LogsActivity,  SoftDeletes;
+    protected $appends = ['total_hours'];
 
     protected $fillable = [
         'date',
@@ -18,6 +19,7 @@ class Attendance extends Model
         'crane_id',
         'added_by',
         'project_id',
+        'total_hours',
     ];
 
 
@@ -39,6 +41,12 @@ class Attendance extends Model
     public function attendances()
     {
         return $this->hasMany(AttendanceDetails::class,'attendance_id');
+    }
+
+
+    public function getTotalHoursAttribute()
+    {
+        return $this->attendances->sum('hour_work_count');
     }
 
 

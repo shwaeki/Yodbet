@@ -52,4 +52,23 @@ class AttendanceDetailsController extends Controller
     }
 
 
+    public function getWorkerMonthlyReportWithProject(Request $request)
+    {
+
+        $worker = Worker::findOrFail(request('worker'));
+        $date = explode('-', request('month'));
+        $year = $date[0];
+        $month = $date[1];
+
+        $attendances = $worker->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->select('hour_work_count', 'date','attendance_id')->get();
+
+        $data = $attendances->map(function ($item) use ($month, $year) {
+            $item['project'] = $item->attendance->project->name;
+            return $item;
+        });
+
+        return response()->json(['worker'=>$worker->name,'data'=>$data]);
+    }
+
+
 }

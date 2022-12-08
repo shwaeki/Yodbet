@@ -18,6 +18,12 @@ class HomeController extends Controller
 
     public function home()
     {
+        if (request('date')) {
+            session(['mainDate' => request('date')]);
+            return  redirect()->back();
+        }
+
+
         $data = [
             'total_client' => Client::count(),
             'total_Worker' => Worker::count(),
@@ -27,7 +33,7 @@ class HomeController extends Controller
             'last_workers' => Worker::latest()->take(10)->get(),
         ];
 
-        return view('backend.home',$data );
+        return view('backend.home', $data);
     }
 
     public function media()

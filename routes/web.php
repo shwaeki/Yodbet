@@ -72,5 +72,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::post('project/ajax/request-1', [AttendanceDetailsController::class, 'getWorkerForMonthAndProject'])->name('project.ajax.one');
     Route::post('project/ajax/request-2', [AttendanceDetailsController::class, 'getProjectForMonthAndWorker'])->name('project.ajax.two');
+    Route::post('project/ajax/request-3', [AttendanceDetailsController::class, 'getWorkerMonthlyReportWithProject'])->name('project.ajax.there');
 
 });

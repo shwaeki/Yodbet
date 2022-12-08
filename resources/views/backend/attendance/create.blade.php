@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label for="date" class="form-control-label"> תאריך </label>
                                         <input type="month" class="form-control" id="date" name="date"
-                                               value="{{request('month') }}" min="{{$minMonth}}"
+                                               value="{{ request('month',session('mainDate')) }}" min="{{$minMonth}}"
                                                max="{{$maxMonth}}" required>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                             @for ($day = 1; $day <=$daysCount ; $day++)
                                                 @php
                                                     $attendance = null;
-                                                     $date = request('month').'-'.str_pad($day,2,'0',STR_PAD_LEFT);
+                                                     $date = request('month',session('mainDate')).'-'.str_pad($day,2,'0',STR_PAD_LEFT);
                                                      $dayname = date('l', strtotime($date));
                                                     if ($projectAttendance){
                                                         $attendance = $projectAttendance->where('date', $date)->first();

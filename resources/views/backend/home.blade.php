@@ -82,18 +82,30 @@
 
     <hr class="m-3 mt--1">
     <div class="row ">
-        <div class="col-4">
+        <div class="col-12 col-md-3">
+            <form>
+                <div class="input-group">
+                    <input type="month" class="form-control" id="date" name="date" value="{{ request('date',session('mainDate')) }}"
+                           required>
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="submit">בחר</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-md-3">
             @can('create-attendance')
-                <a href="{{ route('attendance.create') }}" class="btn btn-block btn-primary">הוסף דוח שעות</a>
-            @endcan</div>
-        <div class="col-4">
-            @can('create-client')
-                <a href="{{ route('client.create') }}" class="btn btn-block btn-info">הוסף לקוח חדש</a>
+                <a href="{{ route('attendance.create') }}" class="btn h-100 btn-block btn-primary">הוסף דוח שעות</a>
             @endcan
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-3">
+            @can('create-client')
+                <a href="{{ route('client.create') }}" class="btn h-100 btn-block btn-info">הוסף לקוח חדש</a>
+            @endcan
+        </div>
+        <div class="col-12 col-md-3">
             @can('create-worker')
-                <a href="{{ route('worker.create') }}" class="btn  btn-block btn-success">הוסף עובד חדש</a>
+                <a href="{{ route('worker.create') }}" class="btn h-100 btn-block btn-success">הוסף עובד חדש</a>
             @endcan
         </div>
     </div>
@@ -117,8 +129,9 @@
 
                         <thead class="thead-light">
                         <tr>
+                            <th>#</th>
                             <th>שם הפרוייקט</th>
-                            <th>כתובת</th>
+                            <th>לקוח</th>
                             <th>מחיר לשעה</th>
                             <th>מנהל פרוייקט</th>
                             <th>תאריך יצירה</th>
@@ -127,8 +140,9 @@
                         <tbody>
                         @foreach($last_projects as $project)
                             <tr>
+                                <td>{{$loop->index +1}}</td>
                                 <td>{{$project->name}}</td>
-                                <td>{{$project->address}}</td>
+                                <td>{{$project->client->name}}</td>
                                 <td>{{$project->hour_cost}}</td>
                                 <td>{{$project->manager->name ?? ''}}</td>
                                 <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-m-d')}}</td>
@@ -159,7 +173,7 @@
 
                         <thead class="thead-light">
                         <tr>
-                            <th>שם הפרוייקט</th>
+                            <th>שם העובד</th>
                             <th>מחיר לשעה</th>
                             <th>תאריך יצירה</th>
                         </tr>

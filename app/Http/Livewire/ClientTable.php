@@ -29,12 +29,12 @@ class ClientTable extends DataTableComponent
         });
     }
 
-    public function bulkActions(): array
+/*    public function bulkActions(): array
     {
         return [
             'export' => 'Export',
         ];
-    }
+    }*/
 
     public function columns(): array
     {

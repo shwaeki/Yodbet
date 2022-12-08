@@ -37,7 +37,8 @@ class AttendanceController extends Controller
         $minMonth = Carbon::now()->now()->subMonths(2)->format('Y-m');
         $maxMonth = Carbon::now()->subMonths(-5)->format('Y-m');
 
-        $date_request = request('month');
+
+        $date_request = request('month',session('mainDate'));
         $project_request = request('project');
         $crane_request = request('crane');
         if ($date_request) {
@@ -156,10 +157,10 @@ class AttendanceController extends Controller
     public function showReport(Attendance $attendance)
     {
         $data = [];
-        if (request('month')) {
+        $date = request('month',session('mainDate'));
+        if ($date) {
 
-
-            $date = explode('-', request('month'));
+            $date = explode('-', $date);
             $year = $date[0];
             $month = $date[1];
 
@@ -171,8 +172,10 @@ class AttendanceController extends Controller
 
 
             $data = $totalHours->map(function ($item) use ($month, $year) {
+                $attend = $item->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
                 $item['attendances']['sum'] = $item->Attendances->sum('hour_work_count');
-                $item['attendances']['hours'] = $this->calculatorExtraHours($item->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get());
+                $item['attendances']['hours'] = $this->calculatorExtraHours($attend);
+                $item['attendances']['count'] = $attend->count();
                 return $item;
             });
         }
