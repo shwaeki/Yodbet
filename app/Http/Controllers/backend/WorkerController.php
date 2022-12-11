@@ -106,9 +106,17 @@ class WorkerController extends Controller
         $worker = request('worker');
         $date = request('date');
 
-        $data = AttendanceDetails::query()->where('date', $date)->where('worker_id', $worker)->count();
-        if ($data > 0)
-            return response()->json(['status' => false]);
+        $data = AttendanceDetails::query()->where('date', $date)->where('worker_id', $worker)->first();
+
+        $result = [];
+
+        if (!empty($data)) {
+            $result['date'] = $date;
+            $result['worker'] = $data->worker->name;
+            $result['project'] = $data->attendance->project->name;
+            $result['crane'] = $data->attendance->crane->name;
+            return response()->json(['status' => false, 'result' => $result]);
+        }
         return response()->json(['status' => true]);
     }
 

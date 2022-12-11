@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('worker', WorkerController::class);
 
 
+    Route::get('attendance/print', [AttendanceController::class, 'print'])->name('attendance.print');
     Route::get('attendance/report', [AttendanceController::class, 'showReport'])->name('attendance.report');
     Route::resource('attendance', AttendanceController::class);
 

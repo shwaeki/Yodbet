@@ -21,11 +21,11 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    <form action="{{route('attendance.store')}}" method="POST">
+                    <form action="{{route('attendance.store')}}" method="POST" >
                         @csrf
-                        <h6 class="heading-small text-muted mb-4">מידע על לוח נוכחות עובדים</h6>
-                        <div class="pl-lg-4">
-                            <div class="row">
+                        <h6 class="heading-small text-muted mb-4  d-print-none">מידע על לוח נוכחות עובדים</h6>
+                        <div class="pl-lg-4 ">
+                            <div class="row  d-print-none">
 
                                 <div class="col-4">
                                     <div class="form-group">
@@ -53,7 +53,7 @@
 
                             </div>
                             @if($project)
-                                <div class="row py-4 bg-primary text-white rounded-lg mb-4">
+                                <div class="row py-4 bg-primary text-white rounded-lg mb-4  d-print-none">
                                     <div class="col-3 d-flex align-items-center">
                                         מנהל הפרויקט : {{$project->manager->name ?? ''}}
                                     </div>
@@ -83,6 +83,10 @@
                             @if($project && $daysCount && request('crane') )
                                 <div class="table-responsive">
                                     <div>
+                                        <div class="btn-group d-flex justify-content-end">
+                                            <a class="btn btn-secondary flex-grow-0" href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'excel'])}}" >Excel</a>
+                                            <a class="btn btn-secondary flex-grow-0" href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'print'])}}" >Print</a>
+                                        </div>
                                         <table class="table align-items-center table-sm table-striped"
                                                id="AttendanceTable">
                                             <thead class="thead-light">
@@ -95,8 +99,12 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td class="text-right" colspan="4"><h4 class="mb-0">סך הכול שעות: <span
-                                                            class="totalHours">0</span></h4></td>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <td class="text-right" colspan="4">
+                                                    <h4 class="mb-0">סך הכול שעות: <span class="totalHours">0</span></h4>
+                                                </td>
                                             </tr>
                                             @for ($day = 1; $day <=$daysCount ; $day++)
                                                 @php
@@ -204,10 +212,10 @@
                                 </div>
                             @endif
 
-                            <button type="button" onclick="addRow()" class="btn btn-success my-3">+</button>
+                            <button type="button" onclick="addRow()" class="btn btn-success my-3  d-print-none">+</button>
                         </div>
                         <hr class="m-1">
-                        <div class="pl-lg-4">
+                        <div class="pl-lg-4  d-print-none">
                             <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit" class="mt-3 btn btn-primary">עדכון</button>
@@ -289,7 +297,6 @@
 
 @push('scripts')
     <script src="{{asset('assets/vendor/select2/dist/js/select2.full.min.js')}}"></script>
-
     <script>
 
         function getTotalHours() {
@@ -345,12 +352,13 @@
                             select.val(null).trigger("change");
                             hours.prop('readonly', true);
                             hours.val('');
-                            Swal.fire(
-                                'שגיאה!',
-                                'עובד אינו יכול לעבוד באותו יום ביותר מאתר עבודה אחד!',
-                                'error'
-                            )
+                            Swal.fire({
+                                title: 'שגיאה!',
+                                icon: 'error',
+                                html: " עובד אינו יכול לעבוד באותו יום ביותר מאתר עבודה אחד! <br>" + "<b>" + data.result['worker'] + "</b>" + " עובד בתאריך הזה ב  " + "<b>" + data.result['project'] + "</b>" + " על " + data.result['crane'] + "</b>" + " "
+                            })
                         }
+
                     }
                 });
             });
@@ -391,7 +399,7 @@
                                                             </div>
                                                         </td>
         </tr>`);
-            var select2 = $("select[name='attendance["+ index + "][worker]']")
+            var select2 = $("select[name='attendance[" + index + "][worker]']")
             initializeSelect2(select2);
         }
 
@@ -405,6 +413,7 @@
                 getTotalHours();
             });
 
+
             $('body').on('keydown', 'input, select', function (e) {
                 if (e.key === "Enter") {
                     var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
@@ -412,6 +421,7 @@
                     next = focusable.eq(focusable.index(this) + 1);
                     if (next.length) {
                         next.focus();
+                        next.select();
                     }
                     return false;
                 }
@@ -444,19 +454,36 @@
 
             $("#selectWorker").on("click", function () {
                 var data = $('#mainWorker').select2('data')
-                var name = data[0].text;
-                var id = data[0].id;
+                if (data && data !== '') {
+                    var name = data[0].text;
+                    var id = data[0].id;
 
-                $('.searchSelect').each(function () {
-                    if ($(this).find("option[value=" + id + "]").length) {
-                        $(this).val(id).trigger("change");
-                    } else {
-                        var newState = new Option(name, id, true, true);
-                        $(this).append(newState).trigger('change');
-                    }
+                    $('.searchSelect').each(function () {
+                        if ($(this).find("option[value=" + id + "]").length) {
+                            $(this).val(id).trigger("change");
+                        } else {
+                            var newState = new Option(name, id, true, true);
+                            $(this).append(newState).trigger('change');
+                        }
+                        var select = $(this);
+                        var hours = select.parent().parent().find(".hours");
+                        var date = select.parent().parent().find('#date').val();
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('worker.data.status') }}",
+                            data: {worker: id, date: date},
+                            success: function (data) {
+                                if (data.status === false) {
+                                    select.val(null).trigger("change");
+                                    hours.prop('readonly', true);
+                                    hours.val('');
+                                }
+                            }
+                        });
 
-                })
-                $('.hours').prop('readonly', false).val('');
+                    })
+                    $('.hours').prop('readonly', false).val('');
+                }
             });
 
 

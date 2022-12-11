@@ -10,7 +10,7 @@
 @endpush
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css" rel="stylesheet"/>
@@ -138,10 +138,7 @@
 
 
 @push('scripts')
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-
-
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -167,26 +164,11 @@
             }
         });
 
-        var reportTable = $('#tableMonthlyReport').DataTable({
-            dom: 'B',
-            paginate: false,
-            buttons: [ {
-                extend: 'excelHtml5',
-                title: 'דוח שעות'
-            }],
-        });
 
 
-        $('#date').on('change', function () {
-            var date = $('#date').val();
-            if (date) {
-                $('#monthFom #month').val(date);
-                $('#monthFom').submit();
-            }
-            if (this.value === "" || this.value == null) {
-                $('#monthFom #month').val(null);
-                $('#monthFom').submit();
-            }
+
+        $('#month').on('change', function () {
+            $('#monthFom').submit();
         });
 
         function openMonthAttModel(worker) {
@@ -200,9 +182,24 @@
                     worker: worker,
                 },
                 success: function (data) {
+                    var reportTable = $('#tableMonthlyReport').DataTable({
+                        dom: 'B',
+                        paginate: false,
+                        buttons: [
+                            {
+                                extend: 'excelHtml5',
+                                title: 'דוח שעות של '+data.worker,
+                            }
+                            ,{
+                                extend: 'print',
+                                title: 'דוח שעות של '+data.worker,
+                            },
+                        ],
+                    });
+
                     reportTable.clear().draw();
                     for (var i = 0; i < data.data.length; i++) {
-                        reportTable.row.add([data.worker, data.data[i].date,data.data[i].project, data.data[i].hour_work_count]).draw(false);
+                        reportTable.row.add([data.worker, data.data[i].date, data.data[i].project, data.data[i].hour_work_count]).draw(false);
                     }
                     $('#monthAttModel').modal('show');
 

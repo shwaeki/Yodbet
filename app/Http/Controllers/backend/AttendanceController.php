@@ -28,6 +28,53 @@ class AttendanceController extends Controller
     }
 
 
+    public function print()
+    {
+        $daysCount = null;
+        $project = null;
+        $projectAttendance = null;
+        $extraAttendance = [];
+        $minMonth = Carbon::now()->now()->subMonths(2)->format('Y-m');
+        $maxMonth = Carbon::now()->subMonths(-5)->format('Y-m');
+
+
+        $date_request = request('month', session('mainDate'));
+        $project_request = request('project');
+        $crane_request = request('crane');
+        if ($date_request) {
+            $date = explode('-', $date_request);
+            $daysCount = Carbon::createFromDate($date[0], $date[1], 1)->daysInMonth;
+        }
+        if ($project_request && $date_request) {
+            $project = Project::findOrFail($project_request);
+            if ($crane_request) {
+                $crane = Crane::findOrFail($crane_request);
+                if ($crane) {
+                    $attendance = $project->attendances()->where('crane_id', $crane_request)
+                        ->where('date', $date_request)->first();
+                    if ($attendance) {
+                        $projectAttendance = $attendance->attendances()->where('is_extra', null)->get();
+                        $extraAttendance = $attendance->attendances()->where('is_extra', true)->get();
+                    }
+                }
+            }
+        }
+        $projects = Project::select(DB::raw('CONCAT(c.name," - " ,projects.name) as name , projects.id'))
+            ->join('clients AS c', 'c.id', '=', 'projects.client_id')->where('status', 'pending')->get()->pluck('name', 'id');
+
+
+        $data = [
+            'projects' => $projects,
+            'project' => $project,
+            'projectAttendance' => $projectAttendance,
+            'extraAttendance' => $extraAttendance,
+            'minMonth' => $minMonth,
+            'maxMonth' => $maxMonth,
+            'daysCount' => $daysCount,
+        ];
+        return view('backend.attendance.print', $data);
+    }
+
     public function create()
     {
         $daysCount = null;
@@ -38,7 +85,7 @@ class AttendanceController extends Controller
         $maxMonth = Carbon::now()->subMonths(-5)->format('Y-m');
 
 
-        $date_request = request('month',session('mainDate'));
+        $date_request = request('month', session('mainDate'));
         $project_request = request('project');
         $crane_request = request('crane');
         if ($date_request) {
@@ -157,7 +204,7 @@ class AttendanceController extends Controller
     public function showReport(Attendance $attendance)
     {
         $data = [];
-        $date = request('month',session('mainDate'));
+        $date = request('month', session('mainDate'));
         if ($date) {
 
             $date = explode('-', $date);
