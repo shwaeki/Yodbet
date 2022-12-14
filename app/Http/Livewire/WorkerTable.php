@@ -34,7 +34,7 @@ class WorkerTable extends DataTableComponent
             Column::make("#", "id")->sortable(),
             Column::make("שם", "name")->sortable(),
             Column::make("מספר טלפו", "phone1")->sortable(),
-            Column::make("מחיר שעון", "hour_cost")->sortable(),
+            Column::make("מחיר לשעה", "hour_cost")->sortable(),
             Column::make("מספר תעודת זהות", "identification")->sortable(),
             BooleanColumn::make("המצב", "status")->sortable(),
             Column::make("נוסף על ידי", "user.name")->sortable(),

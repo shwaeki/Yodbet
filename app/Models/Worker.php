@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 
 class Worker extends Model
 {
-    use HasFactory;
+    use HasFactory,  SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,8 +24,7 @@ class Worker extends Model
         'course_date',
         'course_end_date',
         'license_expiration_date',
-        'is_organizer',
-        'organizer_id',
+        'number',
         'added_by',
     ];
 

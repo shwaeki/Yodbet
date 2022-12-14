@@ -30,6 +30,7 @@ class UpdateWorkerRequest extends FormRequest
             'hour_cost' => 'nullable|numeric',
             'identification' => 'nullable|numeric',
             'email' => 'nullable|email',
+            'number' => 'nullable|numeric|unique:workers',
         ];
     }
 }

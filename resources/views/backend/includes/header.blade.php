@@ -3,13 +3,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <!-- Sidenav toggler -->
-            <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin"
-                 data-target="#sidenav-main">
-                <div class="sidenav-toggler-inner">
-                    <i class="sidenav-toggler-line"></i>
-                    <i class="sidenav-toggler-line"></i>
-                    <i class="sidenav-toggler-line"></i>
-                </div>
+            <div class="pr-3">
+                <a class="btn btn-white rounded-pill d-flex align-items-center" href="{{route('home')}}">
+                    <i class="ni ni-shop text-primary"></i>
+                    <span class="nav-link-text">ראשי</span>
+                </a>
             </div>
 
             <!-- Search form -->

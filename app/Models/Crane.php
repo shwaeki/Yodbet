@@ -22,6 +22,11 @@ class Crane extends Model
         return $this->hasMany(Attendance::class,'crane_id');
     }
 
+    public function attendancesDetails()
+    {
+        return $this->hasManyThrough(AttendanceDetails::class,Attendance::class);
+    }
+
     public function project()
     {
         return $this->belongsTo(Project::class,'project_id');

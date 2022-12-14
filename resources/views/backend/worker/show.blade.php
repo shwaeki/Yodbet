@@ -161,23 +161,9 @@
 
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="organizer_id" class="form-control-label"> מנהל </label>
-                                                    <input type="text" class="form-control" id="is_organizer"
-                                                           value="{{$worker->organizer?->name}}" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label for="is_organizer" class="form-control-label"> סוג
-                                                        העובד </label>
-                                                    @if($worker->is_organizer)
-                                                        <input type="text" class="form-control" id="is_organizer"
-                                                               value="סדראן" disabled>
-                                                    @else
-                                                        <input type="text" class="form-control" id="is_organizer"
-                                                               value="עובד" disabled>
-                                                    @endif
+                                                    <label for="number" class="form-control-label">  מספר עובד </label>
+                                                    <input type="text" class="form-control" id="number" name="number"
+                                                           value="{{$worker->number}}" disabled>
                                                 </div>
                                             </div>
 

@@ -56,10 +56,19 @@
                                                value="{{old('hour_cost',$project->hour_cost)}}" required>
                                     </div>
                                 </div>
+
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="manager_id" class="form-control-label"> مدير المشروع  </label>
-                                        {{ Form::select('manager_id', $managers,old('manager_id',$project->manager_id), [ 'class'=> 'selectpicker form-control', 'placeholder' => 'اختر مدير المشروع ...']) }}
+                                        <label for="manager_id" class="form-control-label">מנהל פרוייקט  </label>
+                                        {{ Form::select('manager_id', $managers,old('manager_id',$project->manager_id), [ 'class'=> 'selectpicker form-control', 'placeholder' => 'בחר ...']) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="organizer_id" class="form-control-label"> סדראן </label>
+                                        {{ Form::select('organizer_id', $organizers,old('organizer_id',$project->organizer_id), [ 'class'=> 'selectpicker form-control', 'placeholder' => 'בחר ...']) }}
                                     </div>
                                 </div>
                             </div>

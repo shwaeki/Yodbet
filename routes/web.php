@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\ClientController;
 use App\Http\Controllers\backend\ContactController;
 use App\Http\Controllers\backend\CraneController;
 use App\Http\Controllers\backend\HomeController;
+use App\Http\Controllers\backend\OrganizerController;
 use App\Http\Controllers\backend\PermissionController;
 use App\Http\Controllers\backend\ProjectController;
 use App\Http\Controllers\backend\RoleController;
@@ -66,13 +67,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('project.crane', CraneController::class)->only(['store','update','destroy']);
 
 
+    Route::get('project/report', [ProjectController::class, 'report'])->name('project.report');
     Route::resource('project', ProjectController::class)->only(['index', 'show']);
     Route::resource('client.project', ProjectController::class)->only(['create', 'store', 'edit','update', 'destroy']);
 
     Route::get('activity-log', [SettingController::class, 'activity'])->name('activity-log.index');
 
+
+    Route::get('organizer/report', [OrganizerController::class, 'report'])->name('organizer.report');
+    Route::resource('organizer', OrganizerController::class);
+
     Route::post('project/ajax/request-1', [AttendanceDetailsController::class, 'getWorkerForMonthAndProject'])->name('project.ajax.one');
     Route::post('project/ajax/request-2', [AttendanceDetailsController::class, 'getProjectForMonthAndWorker'])->name('project.ajax.two');
     Route::post('project/ajax/request-3', [AttendanceDetailsController::class, 'getWorkerMonthlyReportWithProject'])->name('project.ajax.there');
+    Route::post('project/ajax/request-4', [AttendanceDetailsController::class, 'getProjectCranesDetails'])->name('project.ajax.four');
 
 });

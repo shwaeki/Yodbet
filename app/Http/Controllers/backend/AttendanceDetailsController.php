@@ -70,5 +70,17 @@ class AttendanceDetailsController extends Controller
         return response()->json(['worker'=>$worker->name,'data'=>$data]);
     }
 
+    public function getProjectCranesDetails(Request $request)
+    {
+
+        $cranes = Project::findOrFail(request('project'))->cranes()->get();
+
+        foreach ($cranes as $crane){
+            $data[] =  ['crane' => $crane->name,'hour_count' => $crane->attendancesDetails()->sum('hour_work_count')];
+        }
+
+        return response()->json(['data'=>$data]);
+    }
+
 
 }

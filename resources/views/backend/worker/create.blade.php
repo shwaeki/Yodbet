@@ -64,6 +64,8 @@
                                 </div>
 
 
+
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="start_work_date" class="form-control-label"> תאריך תחילת העבודה </label>
@@ -106,23 +108,14 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="organizer_id" class="form-control-label"> מנהל  </label>
-                                        {{ Form::select('organizer_id', $organizers, null, [ 'class'=> 'selectpicker form-control', 'placeholder' => 'اختر מנהל  ...']) }}
+                                        <label for="number" class="form-control-label">  מספר עובד </label>
+                                        <input type="text" class="form-control" id="number" name="number"
+                                               value="{{old('number')}}">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="is_organizer" class="form-control-label"> סוג העובד </label>
-                                        <select class="form-control" id="is_organizer" name="is_organizer" required>
-                                            <option value="0">עובד</option>
-                                            <option value="1">סדראן</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Attendance;
 use App\Models\Client;
+use App\Models\Organizer;
 use App\Models\Project;
 use App\Models\Worker;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class ProjectController extends Controller
     public function create(Client $client)
     {
         $data = [
+            'organizers' => Organizer::all()->pluck('name', 'id'),
             'managers' => $client->contacts()->pluck('name', 'id'),
             'client' => $client
         ];
@@ -75,6 +77,7 @@ class ProjectController extends Controller
     {
         $data = [
             'managers' => $client->contacts()->pluck('name', 'id'),
+            'organizers' => Organizer::all()->pluck('name', 'id'),
             'project' => $project,
             'client' => $client
         ];
@@ -96,5 +99,16 @@ class ProjectController extends Controller
         $project->delete();
         flash(trans('messages.flash.destroy'))->info();
         return redirect()->route('client.index');
+    }
+
+
+    public function report( )
+    {
+
+        $data = [
+            'projects' => Project::all(),
+        ];
+
+        return view('backend.project.report', $data);
     }
 }

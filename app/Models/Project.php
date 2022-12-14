@@ -21,9 +21,15 @@ class Project extends Model
         'lat',
         'lng',
         'manager_id',
+        'organizer_id',
         'client_id',
     ];
 
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class,'organizer_id');
+    }
 
     public function client()
     {
@@ -38,6 +44,11 @@ class Project extends Model
     public function attendances()
     {
         return $this->hasMany(Attendance::class,'project_id');
+    }
+
+    public function attendancesDetails()
+    {
+        return $this->hasManyThrough(AttendanceDetails::class,Attendance::class);
     }
 
     public function cranes()

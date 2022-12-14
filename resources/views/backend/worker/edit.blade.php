@@ -108,20 +108,12 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="organizer_id" class="form-control-label"> מנהל  </label>
-                                        {{ Form::select('organizer_id', $organizers, old('hour_cost',$worker->organizer_id), [ 'class'=> 'selectpicker form-control', 'placeholder' => 'בחר מנהל  ...']) }}
+                                        <label for="number" class="form-control-label">  מספר עובד </label>
+                                        <input type="text" class="form-control" id="number" name="number"
+                                               value="{{old('number',$worker->number)}}">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="is_organizer" class="form-control-label"> סוג העובד </label>
-                                        <select class="form-control" id="is_organizer" name="is_organizer" required>
-                                            <option value="0">עובד</option>
-                                            <option value="1">סדראן</option>
-                                        </select>
-                                    </div>
-                                </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group d-flex">

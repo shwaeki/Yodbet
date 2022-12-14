@@ -128,6 +128,13 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
+                                                    <label for="manager_id" class="form-control-label"> סדראן</label>
+                                                    <input type="text" class="form-control" id="hour_cost"
+                                                           value="{{$project->organizer->name ?? ''}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
                                                     <label for="manager_id" class="form-control-label"> حالة
                                                         المشروع </label>
                                                     <input type="text" class="form-control" id="hour_cost"

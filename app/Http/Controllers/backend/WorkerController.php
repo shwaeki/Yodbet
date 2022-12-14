@@ -21,13 +21,9 @@ class WorkerController extends Controller
         return view('backend.worker.index');
     }
 
-
     public function create()
     {
-        $data = [
-            'organizers' => Worker::where('is_organizer', true)->where('status', true)->get()->pluck('name', 'id'),
-        ];
-        return view('backend.worker.create', $data);
+        return view('backend.worker.create');
     }
 
 
@@ -75,9 +71,6 @@ class WorkerController extends Controller
     {
         $data = [
             'worker' => $worker,
-            'organizers' => Worker::where('is_organizer', true)
-                ->where('id', '!=', $worker->id)->where('status', true)
-                ->get()->pluck('name', 'id'),
         ];
         return view('backend.worker.edit', $data);
     }
@@ -126,7 +119,6 @@ class WorkerController extends Controller
         if ($request->has('q')) {
             $search = $request->q;
             $data = Worker::select("id", "name", "identification")
-                ->where('is_organizer', false)
                 ->where('status', true)
                 ->where('name', 'LIKE', "%$search%")
                 ->get();

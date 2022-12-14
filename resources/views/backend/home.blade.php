@@ -81,118 +81,94 @@
     </div>
 
     <hr class="m-3 mt--1">
-    <div class="row ">
-        <div class="col-12 col-md-3">
-            <form>
-                <div class="input-group">
-                    <input type="month" class="form-control" id="date" name="date" value="{{ request('date',session('mainDate')) }}"
-                           required>
-                    <div class="input-group-append">
-                        <button class="btn btn-warning" type="submit">בחר</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-12 col-md-3">
-            @can('create-attendance')
-                <a href="{{ route('attendance.create') }}" class="btn h-100 btn-block btn-primary">הוסף דוח שעות</a>
-            @endcan
-        </div>
-        <div class="col-12 col-md-3">
-            @can('create-client')
-                <a href="{{ route('client.create') }}" class="btn h-100 btn-block btn-info">הוסף לקוח חדש</a>
-            @endcan
-        </div>
-        <div class="col-12 col-md-3">
-            @can('create-worker')
-                <a href="{{ route('worker.create') }}" class="btn h-100 btn-block btn-success">הוסף עובד חדש</a>
-            @endcan
-        </div>
-    </div>
-    <hr class="m-3">
-    <div class="row">
-        <div class="col-xl-8">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">פרויקטים אחרונים</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="row ">
+                <div class="col-12 col-md-3 mb-3">
+                    <form>
+                        <div class="input-group">
+                            <input type="month" class="form-control" id="date" name="date"
+                                   value="{{ request('date',session('mainDate')) }}"
+                                   required>
+                            <div class="input-group-append">
+                                <button class="btn btn-warning" type="submit">בחר</button>
+                            </div>
                         </div>
-                        <div class="col text-right">
-                            <a href="{{route('project.index')}}" class="btn btn-sm btn-primary">ראה הכל</a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="table-responsive">
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('attendance.create') }}" class="btn h-100 btn-block btn-primary">הוסף דוח
+                        שעות</a>
+                </div>
 
-                    <table class="table align-items-center table-flush">
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('attendance.report') }}" class="btn h-100 btn-block btn-primary">דוח ריכוז</a>
+                </div>
 
-                        <thead class="thead-light">
-                        <tr>
-                            <th>#</th>
-                            <th>שם הפרוייקט</th>
-                            <th>לקוח</th>
-                            <th>מחיר לשעה</th>
-                            <th>מנהל פרוייקט</th>
-                            <th>תאריך יצירה</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($last_projects as $project)
-                            <tr>
-                                <td>{{$loop->index +1}}</td>
-                                <td>{{$project->name}}</td>
-                                <td>{{$project->client->name}}</td>
-                                <td>{{$project->hour_cost}}</td>
-                                <td>{{$project->manager->name ?? ''}}</td>
-                                <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-m-d')}}</td>
-                            </tr>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('users.index') }}" class="btn h-100 btn-block btn-primary">משתמשים </a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('organizer.index') }}" class="btn h-100 btn-block btn-primary">סדראנים </a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('organizer.report') }}" class="btn h-100 btn-block btn-primary">דוח סדראנים</a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('project.report') }}" class="btn h-100 btn-block btn-primary">דוח הפרויקטים</a>
+                </div>
 
-                        @endforeach
-                        </tbody>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('project.index') }}" class="btn h-100 btn-block btn-primary">כל הפרויקטים</a>
+                </div>
 
-
-                    </table>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('client.create') }}" class="btn h-100 btn-block btn-primary">הוסף לקוח חדש</a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('client.index') }}" class="btn h-100 btn-block btn-primary">כל הלקוחות</a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('worker.create') }}" class="btn h-100 btn-block btn-primary">הוסף עובד חדש</a>
+                </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('worker.index') }}" class="btn h-100 btn-block btn-primary">כל העובדים </a>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h3 class="mb-0">עובדים אחרונים</h3>
-                        </div>
-                        <div class="col text-right">
-                            <a href="{{route('worker.index')}}" class="btn btn-sm btn-primary">ראה הכל</a>
-                        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="mainMonthModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">בחר חודש</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-
-                        <thead class="thead-light">
-                        <tr>
-                            <th>שם העובד</th>
-                            <th>מחיר לשעה</th>
-                            <th>תאריך יצירה</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($last_workers as $project)
-                            <tr>
-                                <td>{{$project->name}}</td>
-                                <td>₪{{$project->hour_cost}}</td>
-                                <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-m-d')}}</td>
-                            </tr>
-
-                        @endforeach
-                        </tbody>
-
-                    </table>
-                </div>
+                    <div class="modal-body">
+                        <label for="date" class="form-label">חודש</label>
+                        <input type="month" class="form-control" id="date" name="date"
+                               value="{{ request('date') }}" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">בחר</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
 @endsection
+
+@push('scripts')
+    @if(session('mainDate') == null)
+        <script>
+            $('#mainMonthModal').modal('show')
+        </script>
+    @endif
+@endpush

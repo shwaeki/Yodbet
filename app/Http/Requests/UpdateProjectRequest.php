@@ -30,6 +30,7 @@ class UpdateProjectRequest extends FormRequest
             'end_date' => 'required|date',*/
             'hour_cost' => 'required|numeric',
             'manager_id' => 'nullable|exists:contacts,id',
+            'organizer_id' => 'nullable|exists:organizers,id',
         ];
     }
 }

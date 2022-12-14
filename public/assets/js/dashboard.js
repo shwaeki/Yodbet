@@ -89,11 +89,11 @@ var Layout = (function () {
 
     if ($(window).width() > 1200) {
         if ($sidenavState == 'pinned') {
-            pinSidenav()
+          //  pinSidenav()
         }
 
         if (Cookies.get('sidenav-state') == 'unpinned') {
-            unpinSidenav()
+         //   unpinSidenav()
         }
 
         $(window).resize(function () {
