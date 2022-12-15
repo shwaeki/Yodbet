@@ -15,6 +15,18 @@
     <a href="{{route('client.index')}}" class="btn btn-sm btn-neutral">חזרה </a>
 @endpush
 
+@php
+$days = [
+        'Sunday' => 'יום ראשון',
+        'Monday' => 'יום שני',
+        'Tuesday' => 'יום שלישי',
+        'Wednesday' => 'יום רבעי',
+        'Thursday' => 'יום חמישי',
+        'Friday' => 'יום שישי',
+        'Saturday' => 'יום שבת',
+]
+
+@endphp
 
 @section('content')
     <div class="row">
@@ -93,6 +105,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>תאריל</th>
+                                                <th>יום</th>
                                                 <th style="width:30%">עובד</th>
                                                 <th style="width:20%">מספר השעות</th>
                                             </tr>
@@ -125,6 +138,7 @@
                                                             <input type="hidden" name="attendance[{{$day}}][date]"
                                                                    id="date" value="{{$date}}">
                                                         </td>
+                                                        <td>{{$days[$dayname]}}</td>
                                                         <td>
                                                             <select class="searchSelect form-control"
                                                                     name="attendance[{{$day}}][worker]"
@@ -154,6 +168,7 @@
                                                     @else
                                                         <td>{{$day}}</td>
                                                         <td>{{$date}}</td>
+                                                        <td>{{$days[$dayname]}}</td>
                                                         <td></td>
                                                         <td></td>
 

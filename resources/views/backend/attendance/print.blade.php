@@ -20,6 +20,18 @@
     <a href="{{route('client.index')}}" class="btn btn-sm btn-neutral">חזרה </a>
 @endpush
 
+@php
+    $days = [
+            'Sunday' => 'יום ראשון',
+            'Monday' => 'יום שני',
+            'Tuesday' => 'יום שלישי',
+            'Wednesday' => 'יום רבעי',
+            'Thursday' => 'יום חמישי',
+            'Friday' => 'יום שישי',
+            'Saturday' => 'יום שבת',
+    ]
+
+@endphp
 
 @section('content')
     <div class="row">
@@ -37,12 +49,14 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>תאריל</th>
+                                                <th>יום</th>
                                                 <th style="width:30%">עובד</th>
                                                 <th style="width:20%">מספר השעות</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -61,17 +75,16 @@
                                                 @endphp
                                                 @if($dayname != "Saturday")
                                                     <tr @class(['table-success' => $attendance, 'table-danger' => $dayname == "Saturday",])>
-
-
                                                         <td>{{$day}}</td>
                                                         <td>
                                                             {{$date}}
                                                         </td>
+                                                        <td>{{$days[$dayname]}}</td>
                                                         <td>
-                                                            {{$attendance->worker?->name ?? ''}}- {{$attendance->worker?->identification}}
+                                                            {{$attendance?->worker?->name ?? ''}}- {{$attendance?->worker?->identification}}
                                                         </td>
                                                         <td>
-                                                            {{ $attendance->hour_work_count ??'' }}     שעות
+                                                            {{ $attendance?->hour_work_count ?? '0' }}     שעות
                                                         </td>
 
                                                     </tr>
