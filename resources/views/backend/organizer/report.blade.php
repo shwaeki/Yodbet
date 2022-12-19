@@ -13,7 +13,7 @@
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css" rel="stylesheet"/>
     <style>
-        .dataTable .sorting {
+        .dataTable .sorting_disabled {
             text-align: right;
         }
     </style>
@@ -31,7 +31,6 @@
                         <form id="organizerForm">
                             <div class="row">
                                 <div class="col-6">
-
                                     <div class="form-group">
                                         <label for="project_id" class="form-control-label"> סדראן </label>
                                         {{ Form::select('organizer', $organizers,old('organizer',request('organizer')), [ 'id' => 'organizer' , 'class'=> 'selectpicker form-control','required' => 'required', 'placeholder' => 'בחר  ...']) }}

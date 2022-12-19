@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Http\Controllers\backend\AdvanceController;
+use App\Http\Controllers\backend\AdvanceDetailsController;
 use App\Http\Controllers\backend\AttendanceController;
 use App\Http\Controllers\backend\AttendanceDetailsController;
 use App\Http\Controllers\backend\ClientController;
@@ -76,6 +78,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('organizer/report', [OrganizerController::class, 'report'])->name('organizer.report');
     Route::resource('organizer', OrganizerController::class);
+
+    Route::put('advance/details/{id}', [AdvanceController::class, 'updateDetails'])->name('advance.details.update');
+    Route::resource('advance', AdvanceController::class);
 
     Route::post('project/ajax/request-1', [AttendanceDetailsController::class, 'getWorkerForMonthAndProject'])->name('project.ajax.one');
     Route::post('project/ajax/request-2', [AttendanceDetailsController::class, 'getProjectForMonthAndWorker'])->name('project.ajax.two');

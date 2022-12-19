@@ -220,6 +220,9 @@ class AttendanceController extends Controller
 
             $data = $totalHours->map(function ($item) use ($month, $year) {
                 $attend = $item->Attendances()->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+                $advance = $item->advanceDetails()->whereYear('payment_date', '=', $year)->whereMonth('payment_date', '=', $month)
+                                ->where('paid',false)->first()->amount ?? 0;
+                $item['advance'] = $advance;
                 $item['attendances']['sum'] = $item->Attendances->sum('hour_work_count');
                 $item['attendances']['hours'] = $this->calculatorExtraHours($attend);
                 $item['attendances']['count'] = $attend->count();

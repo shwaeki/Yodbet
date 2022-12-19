@@ -58,6 +58,7 @@ class WorkerController extends Controller
         $data = [
             'worker' => $worker->load('Attendances'),
             'projectAtt' => $projectAtt,
+            'advances' => $worker->advanceDetails()->get(),
             'monthAtt' => $monthAtt,
         ];
 

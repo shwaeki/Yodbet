@@ -38,6 +38,12 @@ class Worker extends Model
         return $this->hasMany(AttendanceDetails::class,'worker_id');
     }
 
+
+    public function advanceDetails()
+    {
+        return $this->hasMany(AdvanceDetails::class,'worker_id');
+    }
+
     public function organizer()
     {
         return $this->belongsTo(Worker::class,'organizer_id');

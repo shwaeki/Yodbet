@@ -59,6 +59,7 @@
                                             <th>שעות 125%</th>
                                             <th>שעות 150%</th>
                                             <th>שעות בונוס</th>
+                                            <th>מקדימה</th>
                                             <th>מידע</th>
                                         </tr>
                                         </thead>
@@ -74,6 +75,7 @@
                                                 <td>{{$d->attendances['hours']['hours_125']}}</td>
                                                 <td>{{$d->attendances['hours']['hours_150']}}</td>
                                                 <td>{{$d->attendances['hours']['hours_bonus']}}</td>
+                                                <td>{{$d['advance']}}</td>
                                                 <td>
                                                     <button class="btn btn-sm btn-primary"
                                                             onclick="openMonthAttModel({{$d->id}})">
@@ -182,6 +184,9 @@
                     worker: worker,
                 },
                 success: function (data) {
+                    if ( $.fn.DataTable.isDataTable('#tableMonthlyReport') ) {
+                        $('#tableMonthlyReport').DataTable().destroy();
+                    }
                     var reportTable = $('#tableMonthlyReport').DataTable({
                         dom: 'B',
                         paginate: false,
