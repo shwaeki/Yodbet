@@ -29,7 +29,7 @@ class CraneController extends Controller
     public function destroy(Project $project,Crane $crane)
     {
         $crane->delete();
-        flash(trans('messages.flash.destroy'))->info();
+        flash(trans('messages.flash.deleted'))->info();
         return redirect()->route('project.show',$project)->withFragment( 'cranes');
     }
 }

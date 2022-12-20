@@ -25,6 +25,7 @@ class Worker extends Model
         'course_end_date',
         'license_expiration_date',
         'number',
+        'type',
         'added_by',
     ];
 

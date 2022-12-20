@@ -66,6 +66,14 @@ class ClientTable extends DataTableComponent
                                 'class' => 'btn edit btn-primary btn-sm m-1',
                             ];
                         }),
+                    LinkColumn::make('Delete')
+                        ->title(fn($row) => '')
+                        ->location(fn($row) => route('client.destroy', $row->id))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'btn delete btn-primary btn-sm m-1',
+                            ];
+                        }),
                     LinkColumn::make('Show')
                         ->title(fn($row) => 'פרויקטיים')
                         ->location(fn($row) => route('client.show', $row->id). '#projects')
@@ -74,14 +82,7 @@ class ClientTable extends DataTableComponent
                                 'class' => 'btn  btn-primary btn-sm m-1',
                             ];
                         }),
-/*                    LinkColumn::make('Delete')
-                        ->title(fn($row) => '')
-                        ->location(fn($row) => route('client.destroy', $row->id))
-                        ->attributes(function ($row) {
-                            return [
-                                'class' => 'btn delete btn-primary btn-sm m-1',
-                            ];
-                        }),*/
+
                 ])->unclickable(),
         ];
     }

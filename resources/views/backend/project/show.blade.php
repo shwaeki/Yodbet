@@ -164,12 +164,17 @@
                                                     <thead class="thead-light">
                                                     <tr>
                                                         <th>الاسم</th>
+                                                        <th>خيارات</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($project->cranes as $crane)
                                                         <tr>
                                                             <td>{{$crane->name}}</td>
+                                                            <td>
+                                                                <a href="{{route('project.crane.destroy',[$project->id,$crane->id])}}"
+                                                                   class="btn delete btn-primary btn-sm m-1"></a>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>

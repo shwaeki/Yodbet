@@ -94,11 +94,11 @@ class ProjectController extends Controller
     }
 
 
-    public function destroy(Project $project)
+    public function destroy( Client $client, Project $project)
     {
         $project->delete();
         flash(trans('messages.flash.destroy'))->info();
-        return redirect()->route('client.index');
+        return redirect()->route('project.index');
     }
 
 

@@ -116,7 +116,20 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-12">
+                                    <div class="form-group d-flex">
+                                        <label class="custom-toggle">
+                                            <input type="checkbox" value="1" id="type" name="type">
+                                            <span class="custom-toggle-slider rounded-circle" data-label-off="לא "
+                                                  data-label-on="כן"></span>
+                                        </label>
+                                        <label for="status" class="ml-3"> עובד מחליף</label>
+                                    </div>
+                                </div>
                             </div>
+
+
+
                         </div>
 
 

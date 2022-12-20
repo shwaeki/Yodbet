@@ -80,6 +80,7 @@ class WorkerController extends Controller
     public function update(UpdateWorkerRequest $request, Worker $worker)
     {
         // dd($request->all());
+        $request->merge(['type' => $request->has('type')]);
         $request->merge(['status' => $request->has('status')]);
         $worker->update($request->all());
         flash(trans('messages.flash.updated'))->success();;
@@ -100,7 +101,9 @@ class WorkerController extends Controller
         $worker = request('worker');
         $date = request('date');
 
-        $data = AttendanceDetails::query()->where('date', $date)->where('worker_id', $worker)->first();
+        $data = AttendanceDetails::whereHas('worker' ,function($q){
+            $q->where('type', false);
+        })->where('date', $date)->where('worker_id', $worker)->first();
 
         $result = [];
 

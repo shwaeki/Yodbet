@@ -65,7 +65,7 @@
 
 <form action="" method="POST" id="delete-form">
     <input name="_method" type="hidden" value="DELETE">
-    <input name="_token" type="hidden" value="cKYYZgdyCJAP4Ahp5p11iElDc5Yf3OGL3QrmnVE2">
+    @csrf
 </form>
 
 <script>
