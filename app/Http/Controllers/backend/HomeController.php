@@ -20,7 +20,7 @@ class HomeController extends Controller
     {
         if (request('date')) {
             session(['mainDate' => request('date')]);
-            return  redirect()->back();
+            return redirect()->back();
         }
 
 
@@ -29,9 +29,22 @@ class HomeController extends Controller
             'total_Worker' => Worker::count(),
             'total_project' => Project::count(),
             'total_hours' => AttendanceDetails::sum('hour_work_count'),
-            'last_projects' => Project::latest()->take(10)->get(),
-            'last_workers' => Worker::latest()->take(10)->get(),
         ];
+
+        $date = explode('-', request('month', session('mainDate')));
+        if (isset($date[0]) && isset($date[1])) {
+            $year = $date[0];
+            $month = $date[1];
+
+            $data = [
+                'total_client' => Client::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->count(),
+                'total_Worker' => Worker::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->count(),
+                'total_project' => Project::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->count(),
+                'total_hours' => AttendanceDetails::whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('hour_work_count'),
+            ];
+
+        }
+
 
         return view('backend.home', $data);
     }
