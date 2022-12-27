@@ -85,14 +85,14 @@
         <div class="card-body">
             <div class="row ">
                 <div class="col-12 col-md-3 mb-3">
-                    <form>
+                    <form id="monthForm">
                         <div class="input-group">
                             <input type="month" class="form-control" id="date" name="date"
                                    value="{{ request('date',session('mainDate')) }}"
                                    required>
-                            <div class="input-group-append">
-                                <button class="btn btn-warning" type="submit">בחר</button>
-                            </div>
+                            {{--                    <div class="input-group-append">
+                                                    <button class="btn btn-warning" type="submit">בחר</button>
+                                                </div>--}}
                         </div>
                     </form>
                 </div>
@@ -171,4 +171,10 @@
             $('#mainMonthModal').modal('show')
         </script>
     @endif
+
+    <script>
+        $('#date').on('change', function () {
+            $("#monthForm").submit();
+        });
+    </script>
 @endpush
