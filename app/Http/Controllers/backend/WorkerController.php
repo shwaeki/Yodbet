@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
+use App\Models\AdvanceDetails;
 use App\Models\Attendance;
 use App\Models\AttendanceDetails;
 use App\Models\Project;
@@ -95,13 +96,30 @@ class WorkerController extends Controller
         return redirect()->route('worker.index');
     }
 
+    public function showAdvanceReport()
+    {
+        $workers = [];
+        $date = request('month', session('mainDate'));
+        if ($date) {
+
+            $date = explode('-', $date);
+            $year = $date[0];
+            $month = $date[1];
+
+            $data = AdvanceDetails::with('worker')
+                ->whereYear('payment_date', '=', $year)->whereMonth('payment_date', '=', $month)->get();
+        }
+        return view('backend.worker.advance-report', compact('data'));
+    }
+
+
     public function checkWorkerStatusInDate(Request $request)
     {
 
         $worker = request('worker');
         $date = request('date');
 
-        $data = AttendanceDetails::whereHas('worker' ,function($q){
+        $data = AttendanceDetails::whereHas('worker', function ($q) {
             $q->where('type', false);
         })->where('date', $date)->where('worker_id', $worker)->first();
 

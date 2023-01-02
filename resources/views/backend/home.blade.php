@@ -134,6 +134,9 @@
                 <div class="col-12 col-md-3 mb-3">
                     <a href="{{ route('worker.index') }}" class="btn h-100 btn-block btn-primary">כל העובדים </a>
                 </div>
+                <div class="col-12 col-md-3 mb-3">
+                    <a href="{{ route('worker.advance.report') }}" class="btn h-100 btn-block btn-primary">דוח מקדמות</a>
+                </div>
             </div>
         </div>
     </div>
