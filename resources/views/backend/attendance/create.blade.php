@@ -16,15 +16,15 @@
 @endpush
 
 @php
-$days = [
-        'Sunday' => 'יום ראשון',
-        'Monday' => 'יום שני',
-        'Tuesday' => 'יום שלישי',
-        'Wednesday' => 'יום רבעי',
-        'Thursday' => 'יום חמישי',
-        'Friday' => 'יום שישי',
-        'Saturday' => 'יום שבת',
-]
+    $days = [
+            'Sunday' => 'יום ראשון',
+            'Monday' => 'יום שני',
+            'Tuesday' => 'יום שלישי',
+            'Wednesday' => 'יום רבעי',
+            'Thursday' => 'יום חמישי',
+            'Friday' => 'יום שישי',
+            'Saturday' => 'יום שבת',
+    ]
 
 @endphp
 
@@ -33,7 +33,7 @@ $days = [
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    <form action="{{route('attendance.store')}}" method="POST" >
+                    <form action="{{route('attendance.store')}}" method="POST" onsubmit="formSubmitting();">
                         @csrf
                         <h6 class="heading-small text-muted mb-4  d-print-none">מידע על לוח נוכחות עובדים</h6>
                         <div class="pl-lg-4 ">
@@ -92,12 +92,20 @@ $days = [
 
                                 </div>
                             @endif
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="mt-3 btn btn-primary">עדכון</button>
+                                </div>
+                            </div>
                             @if($project && $daysCount && request('crane') )
                                 <div class="table-responsive">
                                     <div>
                                         <div class="btn-group d-flex justify-content-end">
-                                            <a class="btn btn-secondary flex-grow-0" href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'excel'])}}" >Excel</a>
-                                            <a class="btn btn-secondary flex-grow-0" href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'print'])}}" >Print</a>
+                                            <a class="btn btn-secondary flex-grow-0"
+                                               href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'excel'])}}">Excel</a>
+                                            <a class="btn btn-secondary flex-grow-0"
+                                               href="{{route('attendance.print',['month'=>request('month'),'project'=>request('project'),'crane'=>request('crane'),'type'=>'print'])}}">Print</a>
                                         </div>
                                         <table class="table align-items-center table-sm table-striped"
                                                id="AttendanceTable">
@@ -116,7 +124,8 @@ $days = [
                                                 <th></th>
                                                 <th></th>
                                                 <td class="text-right" colspan="4">
-                                                    <h4 class="mb-0">סך הכול שעות: <span class="totalHours">0</span></h4>
+                                                    <h4 class="mb-0">סך הכול שעות: <span class="totalHours">0</span>
+                                                    </h4>
                                                 </td>
                                             </tr>
                                             @for ($day = 1; $day <=$daysCount ; $day++)
@@ -227,7 +236,8 @@ $days = [
                                 </div>
                             @endif
 
-                            <button type="button" onclick="addRow()" class="btn btn-success my-3  d-print-none">+</button>
+                            <button type="button" onclick="addRow()" class="btn btn-success my-3  d-print-none">+
+                            </button>
                         </div>
                         <hr class="m-1">
                         <div class="pl-lg-4  d-print-none">
@@ -428,7 +438,6 @@ $days = [
                 getTotalHours();
             });
 
-
             $('body').on('keydown', 'input, select', function (e) {
                 if (e.key === "Enter") {
                     var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
@@ -466,7 +475,6 @@ $days = [
                 console.log(data);
             });
 
-
             $("#selectWorker").on("click", function () {
                 var data = $('#mainWorker').select2('data')
                 if (data && data !== '') {
@@ -501,7 +509,6 @@ $days = [
                 }
             });
 
-
             $('#date, #project_id, #crane_id').on('change', function () {
                 var date = $('#date').val();
                 var project_id = $('#project_id').val();
@@ -525,6 +532,24 @@ $days = [
             });
 
         })
+
+
+        var formSubmit = false;
+        var unsaved = false;
+
+        function formSubmitting() {
+            formSubmit = true;
+        }
+
+        $(window).bind('beforeunload', function() {
+            if(unsaved && !formSubmit){
+                return "Changes you made may not be saved.";
+            }
+        });
+
+        $(document).on('input', ':input', function(){
+            unsaved = true;
+        });
     </script>
 
 @endpush
